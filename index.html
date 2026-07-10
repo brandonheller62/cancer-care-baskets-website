@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="Cancer Care Baskets by Brandon & Mom — bringing comfort and hope to breast cancer patients at Mount Sinai Cancer Center in South Florida."/>
+<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<link rel="manifest" href="site.webmanifest"/>
+<title>Cancer Care Baskets | By Brandon & Mom</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Georgia',serif;color:#2c1a1a;background:#fff}
+.sans{font-family:'Helvetica Neue',Arial,sans-serif}
+:root{
+  --rose:#b5476a;
+  --rose-light:#fbeaf0;
+  --rose-mid:#e8a0b4;
+  --gold:#c9953a;
+  --gold-light:#fdf6ec;
+  --cream:#fdf9f6;
+  --text:#2c1a1a;
+  --muted:#7a5c5c;
+  --border:#f0dde4;
+}
+a{color:var(--rose);text-decoration:none}
+nav{background:#fff;border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;height:64px}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-heart{color:var(--rose);font-size:22px}
+.logo-text{font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:600;letter-spacing:.5px;color:var(--text)}
+.logo-sub{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;display:block}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-links a{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:var(--muted);letter-spacing:.3px}
+.nav-links a:hover{color:var(--rose)}
+.btn-nav{background:var(--rose);color:#fff!important;padding:8px 18px;border-radius:20px;font-size:13px!important;font-weight:600}
+.btn-nav:hover{background:#9c3558!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;flex-direction:column;background:#fff;border-bottom:1px solid var(--border);padding:1rem 2rem;gap:.75rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;color:var(--muted);padding:.5rem 0;border-bottom:1px solid var(--border)}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu .btn-nav{background:var(--rose);color:#fff!important;padding:10px 18px;border-radius:20px;text-align:center;margin-top:.25rem}
+.hero{background:linear-gradient(135deg,#fbeaf0 0%,#fdf6ec 60%,#fff 100%);padding:80px 2rem 70px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:rgba(181,71,106,.06)}
+.hero::after{content:'';position:absolute;bottom:-40px;left:-40px;width:200px;height:200px;border-radius:50%;background:rgba(201,149,58,.06)}
+.hero-tag{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:16px}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);color:var(--text);line-height:1.2;margin-bottom:20px;font-weight:700}
+.hero p{font-size:1.1rem;color:var(--muted);max-width:560px;margin:0 auto 36px;line-height:1.8}
+.btn-primary{display:inline-block;background:var(--rose);color:#fff;padding:14px 32px;border-radius:30px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:600;margin-right:12px;margin-bottom:12px;transition:background .2s}
+.btn-primary:hover{background:#9c3558;color:#fff}
+.btn-secondary{display:inline-block;background:transparent;color:var(--rose);border:2px solid var(--rose);padding:12px 28px;border-radius:30px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:600;margin-bottom:12px;transition:all .2s}
+.btn-secondary:hover{background:var(--rose-light);color:var(--rose)}
+.hero-stats{display:flex;justify-content:center;gap:3rem;margin-top:52px;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-n{font-size:2rem;font-weight:700;color:var(--rose)}
+.stat-l{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:var(--muted);letter-spacing:.5px;margin-top:2px}
+section{padding:70px 2rem}
+.section-inner{max-width:960px;margin:0 auto}
+.section-tag{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:10px}
+.section-title{font-size:clamp(1.5rem,3vw,2.1rem);color:var(--text);margin-bottom:20px;font-weight:700}
+.section-sub{font-size:1rem;color:var(--muted);line-height:1.8;max-width:600px}
+.divider{width:40px;height:3px;background:var(--gold);border-radius:2px;margin:16px 0 28px}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-top:2rem}
+.story-text p{color:var(--muted);line-height:1.9;margin-bottom:1rem;font-size:1rem}
+.story-card{background:var(--rose-light);border-radius:16px;padding:2rem;border-left:4px solid var(--rose)}
+.story-card blockquote{font-size:1.05rem;color:var(--text);line-height:1.8;font-style:italic}
+.story-card cite{display:block;margin-top:12px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:var(--rose);font-style:normal;font-weight:600}
+.timeline{margin-top:2rem;display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:1rem;align-items:flex-start;padding-bottom:20px;border-left:2px solid var(--border);margin-left:8px;padding-left:20px;position:relative}
+.tl-item:last-child{border-left:2px solid transparent}
+.tl-dot{position:absolute;left:-8px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--rose);border:2px solid #fff;box-shadow:0 0 0 2px var(--rose)}
+.tl-year{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:700;color:var(--rose);min-width:36px;margin-top:2px}
+.tl-desc{font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;color:var(--muted);line-height:1.6}
+.baskets-bg{background:var(--cream)}
+.basket-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+.basket-card{background:#fff;border-radius:16px;border:1px solid var(--border);padding:1.75rem}
+.basket-icon{font-size:28px;margin-bottom:12px}
+.basket-card h3{font-size:1.1rem;color:var(--text);margin-bottom:8px;font-weight:700}
+.basket-card p{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px}
+.item-list{list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.item-list li{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;background:var(--rose-light);color:var(--rose);padding:4px 10px;border-radius:20px;font-weight:500}
+.help-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin-top:2rem}
+.help-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center}
+.help-icon{width:48px;height:48px;border-radius:50%;background:var(--rose-light);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:20px}
+.help-card h3{font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px}
+.help-card p{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
+.btn-small{display:inline-block;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;font-weight:600;color:var(--rose);border:1.5px solid var(--rose);padding:7px 16px;border-radius:20px;transition:all .2s}
+.btn-small:hover{background:var(--rose);color:#fff}
+.sponsors-bg{background:var(--gold-light)}
+.sponsor-tier{margin-bottom:2rem}
+.tier-label{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.tier-label::after{content:'';flex:1;height:1px;background:rgba(201,149,58,.3)}
+.sponsor-pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;padding:6px 14px;border-radius:20px;font-weight:500;text-decoration:none;display:inline-block}
+.pill.diamond{background:#f0e8ff;color:#5c3d9e;border:1px solid #c9b8ef}
+.pill.platinum{background:#fff;color:var(--text);border:1px solid var(--border)}
+.pill.gold{background:var(--gold-light);color:#8a6020;border:1px solid #e8c97a}
+.pill.silver{background:#f5f5f5;color:#555;border:1px solid #ddd}
+.pill.sponsor{background:#fff;color:var(--muted);border:1px solid var(--border);font-size:12px}
+.donate-band{background:var(--rose);padding:60px 2rem;text-align:center}
+.donate-band h2{color:#fff;font-size:clamp(1.5rem,3vw,2rem);margin-bottom:12px}
+.donate-band p{color:rgba(255,255,255,.85);font-family:'Helvetica Neue',Arial,sans-serif;font-size:1rem;margin-bottom:28px;line-height:1.7}
+.btn-white{display:inline-block;background:#fff;color:var(--rose);padding:14px 32px;border-radius:30px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:700;margin:6px;transition:all .2s}
+.btn-white:hover{background:var(--rose-light);color:var(--rose)}
+.btn-outline-white{display:inline-block;background:transparent;color:#fff;border:2px solid rgba(255,255,255,.6);padding:12px 28px;border-radius:30px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:600;margin:6px}
+footer{background:#2c1a1a;color:rgba(255,255,255,.7);text-align:center;padding:2rem;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px}
+footer a{color:var(--rose-mid)}
+footer .footer-logo{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
+@media(max-width:640px){
+  .story-grid,.basket-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero-stats{gap:2rem}
+  .press-grid{grid-template-columns:1fr!important}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <span class="logo-heart">♥</span>
+    <div>
+      <span class="logo-text">Cancer Care Baskets</span>
+      <span class="logo-sub">by Brandon &amp; Mom</span>
+    </div>
+  </div>
+  <div class="nav-links sans">
+    <a href="#story">Our Story</a>
+    <a href="#baskets">The Baskets</a>
+    <a href="#help">How to Help</a>
+    <a href="#press">Press</a>
+    <a href="#impact">Impact</a>
+    <a href="#sponsors">Sponsors</a>
+    <a href="#donate" class="btn-nav">Donate</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#story" onclick="closeMenu()">Our Story</a>
+  <a href="#baskets" onclick="closeMenu()">The Baskets</a>
+  <a href="#help" onclick="closeMenu()">How to Help</a>
+  <a href="#press" onclick="closeMenu()">Press</a>
+  <a href="#impact" onclick="closeMenu()">Impact</a>
+  <a href="#sponsors" onclick="closeMenu()">Sponsors</a>
+  <a href="#donate" onclick="closeMenu()" class="btn-nav">Donate</a>
+</div>
+
+<div class="hero">
+  <p class="hero-tag">South Florida · Mount Sinai Cancer Center</p>
+  <h1>Comfort &amp; hope,<br>one basket at a time<span style="color:var(--rose)">.</span></h1>
+  <p>We create thoughtfully curated care baskets for breast cancer patients — reminding them they are seen, supported, and never alone on their healing journey.</p>
+  <div>
+    <a href="#donate" class="btn-primary">Donate Now</a>
+    <a href="#help" class="btn-secondary">Other Ways to Help</a>
+  </div>
+  <div style="margin-top:2.5rem;border-radius:16px;overflow:hidden;max-width:700px;margin-left:auto;margin-right:auto">
+    <video controls style="width:100%;border-radius:16px;display:block">
+      <source src="ccb-video-sm.mov" type="video/quicktime"/>
+      <source src="ccb-video-sm.mov" type="video/mp4"/>
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n">2018</div><div class="stat-l sans">Year founded</div></div>
+    <div class="stat"><div class="stat-n">1,000+</div><div class="stat-l sans">Baskets delivered</div></div>
+    <div class="stat"><div class="stat-n">100+</div><div class="stat-l sans">Sponsors &amp; supporters</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--rose)">♥</div><div class="stat-l sans">Made with love</div></div>
+  </div>
+</div>
+
+<section id="testimonial" style="background:var(--rose-light);padding:50px 2rem;text-align:center">
+  <div class="section-inner" style="max-width:680px">
+    <div style="font-size:3rem;color:var(--rose);line-height:1;margin-bottom:1rem">❝</div>
+    <blockquote style="font-size:1.2rem;color:var(--text);line-height:1.8;font-style:italic;margin-bottom:1.25rem">"I felt better knowing that I wasn't facing my treatment alone. Gifts of comfort should make patients feel cared for and not alone. 💕"</blockquote>
+    <p class="sans" style="font-size:13px;color:var(--rose);font-weight:600;letter-spacing:.5px">— Anonymous Patient</p>
+  </div>
+</section>
+
+<section id="story">
+  <div class="section-inner">
+    <p class="section-tag">Our Story</p>
+    <h2 class="section-title">A child's love that became a mission</h2>
+    <div class="divider"></div>
+    <div class="story-grid">
+      <div class="story-text">
+        <p>Hi, I'm Brandon! I started this initiative with my mom back in 2018 when I was still in elementary school. My great-grandmother suffered from breast cancer and passed away before I ever had the chance to meet her.</p>
+        <p>We started this project in her memory and in honor of all the incredible women we know who have endured this disease and its treatment. Our dog Dash helps out too!</p>
+        <div style="margin:1.25rem 0;border-radius:14px;overflow:hidden">
+          <img src="dash.jpg" alt="Dash the dog wearing the CCB backpack" style="width:100%;max-height:320px;object-fit:cover;object-position:center top;border-radius:14px;display:block"/>
+        </div>
+        <p>Since then, I've seen breast cancer touch even more friends and family — including my grandma in 2024, and my mom in 2025. Thankfully, they are both doing well now. That only deepens our commitment to this work.</p>
+        <p>Together, we partner with <strong>Mount Sinai Comprehensive Cancer Center</strong> in South Florida, delivering baskets to patients and taking a data-driven approach to continually improve what we include.</p>
+        <div class="timeline">
+          <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">2018</span><span class="tl-desc">Project launched with first basket delivery to Mount Sinai</span></div>
+          <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">2023</span><span class="tl-desc">Switched to backpacks for greater patient utility</span></div>
+          <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">2024</span><span class="tl-desc">Note Writing Campaign launched to include personal encouragement in every basket</span></div>
+          <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">2025</span><span class="tl-desc">Dash Merch campaign &amp; Bracelets for a Cause fundraiser launch</span></div>
+          <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">2026</span><span class="tl-desc">Radiation Care Bundles added to the program</span></div>
+        </div>
+      </div>
+      <div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem">
+          <div>
+            <img src="brandon-gail-2018.jpg" alt="Brandon meeting Gail Brown at Mount Sinai in 2018" style="width:100%;border-radius:14px;display:block;object-fit:cover;aspect-ratio:3/4"/>
+            <p class="sans" style="font-size:11px;color:var(--muted);text-align:center;margin-top:6px;letter-spacing:1px;text-transform:uppercase;font-weight:600">2018</p>
+          </div>
+          <div>
+            <img src="brandon-gail-2026.jpg" alt="Brandon delivering baskets to Gail Brown at Mount Sinai in 2026" style="width:100%;border-radius:14px;display:block;object-fit:cover;aspect-ratio:3/4"/>
+            <p class="sans" style="font-size:11px;color:var(--muted);text-align:center;margin-top:6px;letter-spacing:1px;text-transform:uppercase;font-weight:600">2026</p>
+          </div>
+        </div>
+        <p class="sans" style="font-size:12px;color:var(--muted);text-align:center;font-style:italic;margin-bottom:1.5rem">Eight years later — same mission, same partnership 💗</p>
+        <div style="background:var(--rose-light);border-radius:16px;padding:2rem;border-left:4px solid var(--rose)">
+          <blockquote style="font-size:1.05rem;color:var(--text);line-height:1.8;font-style:italic">"Our mission is to bring comfort and emotional support to breast cancer patients — reminding them they are seen, supported, and never alone during their healing journey."</blockquote>
+          <cite style="display:block;margin-top:12px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:var(--rose);font-style:normal;font-weight:600">— Brandon &amp; Mom</cite>
+        </div>
+        <div style="margin-top:1.5rem;background:var(--gold-light);border-radius:14px;padding:1.25rem;border-left:4px solid var(--gold)">
+          <p class="sans" style="font-size:13px;color:#8a6020;line-height:1.7"><strong>Our liaison:</strong> Gail Brown at Mount Sinai has been our incredible partner since day one in 2018. We take a data-driven approach — gathering patient feedback and questionnaires to continually improve every basket.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="baskets" class="baskets-bg">
+  <div class="section-inner">
+    <p class="section-tag">What We Give</p>
+    <h2 class="section-title">Inside every basket</h2>
+    <div class="divider"></div>
+    <p class="section-sub">Each basket (often a backpack for added utility) is thoughtfully curated with products that ease the side effects of treatment and bring a little joy to a difficult day.</p>
+    <div class="basket-grid">
+      <div class="basket-card">
+        <div class="basket-icon">🎒</div>
+        <h3>Chemotherapy Care Basket</h3>
+        <p>A full backpack packed with comfort essentials for patients going through chemo treatment.</p>
+        <ul class="item-list">
+          <li>Aluminum-free deodorant</li><li>Alcohol-free mouth rinse</li><li>Silky scarf</li><li>Comfy socks</li><li>BPA-free water bottle</li><li>Tissues &amp; wet wipes</li><li>Inspirational notebook</li><li>Stress ball</li><li>Gum &amp; pen</li><li>Blanket</li><li>Chapstick</li><li>Hard candy</li><li>Organic ginger tea</li><li>Notes of encouragement</li>
+        </ul>
+        <div style="margin-top:1rem;background:var(--rose-light);border-radius:10px;padding:12px 14px">
+          <p class="sans" style="font-size:12px;color:var(--rose);line-height:1.6"><strong>Note:</strong> Contents may change based on information gathered from our patient surveys.</p>
+        </div>
+      </div>
+      <div class="basket-card">
+        <div class="basket-icon">🌿</div>
+        <h3>Radiation Care Bundle</h3>
+        <p>A targeted collection of products specifically proven to protect and soothe skin during radiation therapy — a new addition launched in 2026.</p>
+        <ul class="item-list">
+          <li>Dove soap</li><li>Aloe vera gel</li><li>Aveeno cream</li><li>Aquaphor</li>
+        </ul>
+        <div style="margin-top:1rem;background:var(--rose-light);border-radius:10px;padding:12px 14px">
+          <p class="sans" style="font-size:12px;color:var(--rose);line-height:1.6"><strong>Why it matters:</strong> After chemo, most breast cancer patients face weeks of daily radiation, which causes painful skin irritation. This bundle directly addresses those challenges.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="help">
+  <div class="section-inner">
+    <p class="section-tag">Get Involved</p>
+    <h2 class="section-title">Every act of kindness counts</h2>
+    <div class="divider"></div>
+    <div class="help-grid">
+      <div class="help-card">
+        <div class="help-icon">💳</div>
+        <h3 class="sans">Donate</h3>
+        <p>Any amount helps us build more baskets. Donate via Venmo or PayPal — 100% goes directly to patients.</p>
+        <a href="#donate" class="btn-small">Donate Now</a>
+      </div>
+      <div class="help-card">
+        <div class="help-icon">💗</div>
+        <h3 class="sans">Bracelets for a Cause</h3>
+        <p>Purchase a beautiful pink bracelet for just $5! Every dollar goes directly toward creating Cancer Care Baskets. Venmo: Eugenia-Chu or PayPal: chueugenia@yahoo.com. Send your mailing address after donating and we'll ship it out (U.S. only).</p>
+        <a href="https://venmo.com/Eugenia-Chu" class="btn-small">Get a Bracelet</a>
+      </div>
+      <div class="help-card">
+        <div class="help-icon">✉️</div>
+        <h3 class="sans">Write a Note</h3>
+        <p>Send an encouraging message to a patient. We include handwritten notes in every basket.</p>
+        <a href="mailto:cancercarebaskets@gmail.com" class="btn-small">Send a Note</a>
+      </div>
+      <div class="help-card">
+        <div class="help-icon">👕</div>
+        <h3 class="sans">Buy Merch</h3>
+        <p>100% of proceeds from our "Dash Supports Breast Cancer Awareness" merch fund more baskets.</p>
+        <a href="https://tee.pub/lic/tGsltTQ-VpI" class="btn-small">Shop Merch</a>
+      </div>
+      <div class="help-card">
+        <div class="help-icon">📦</div>
+        <h3 class="sans">Donate Items</h3>
+        <p>Collaborate by donating items for the baskets.</p>
+        <a href="mailto:cancercarebaskets@gmail.com" class="btn-small">Get in Touch</a>
+      </div>
+      <div class="help-card">
+        <div class="help-icon">📸</div>
+        <h3 class="sans">Spread the Word</h3>
+        <p>Follow and share our project on Instagram and Facebook to help us reach more supporters and patients.</p>
+        <a href="https://www.instagram.com/cancercarebaskets/" class="btn-small">@cancercarebaskets</a>
+      </div>
+      <div class="help-card">
+        <div class="help-icon">🤝</div>
+        <h3 class="sans">Start Locally</h3>
+        <p>Inspired? We'd love to help you start a similar program in your area.</p>
+        <a href="mailto:cancercarebaskets@gmail.com" class="btn-small">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="press" style="background:var(--cream)">
+  <div class="section-inner">
+    <p class="section-tag">Press &amp; Interviews</p>
+    <h2 class="section-title">As seen in</h2>
+    <div class="divider"></div>
+    <p class="section-sub" style="margin-bottom:2rem">I have been featured in interviews sharing the story behind Cancer Care Baskets and the mission to support breast cancer patients.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem" class="press-grid">
+      <a href="https://canvasrebel.com/meet-brandon-heller/" target="_blank" style="text-decoration:none">
+        <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.75rem;cursor:pointer">
+          <p class="sans" style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:8px">CanvasRebel Magazine</p>
+          <h3 style="font-size:1.1rem;color:var(--text);font-weight:700;margin-bottom:10px">Meet Brandon Heller</h3>
+          <p class="sans" style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px">Brandon shares the heartfelt story behind Cancer Care Baskets — from his great-grandmother's passing to building a data-driven initiative that supports breast cancer patients at Mount Sinai.</p>
+          <span style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;font-weight:600;color:var(--rose)">Read the interview →</span>
+        </div>
+      </a>
+      <a href="https://yychaniauthor.substack.com/p/an-interview-with-brandon-ccb" target="_blank" style="text-decoration:none">
+        <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.75rem;cursor:pointer">
+          <p class="sans" style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:8px">YY Chani Author — Substack</p>
+          <h3 style="font-size:1.1rem;color:var(--text);font-weight:700;margin-bottom:10px">An Interview with Brandon — CCB</h3>
+          <p class="sans" style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px">A closer look at Brandon's journey with Cancer Care Baskets — the motivation, the mission, and what it means to make a difference in the lives of patients going through treatment.</p>
+          <span style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;font-weight:600;color:var(--rose)">Read the interview →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="survey" style="background:var(--rose-light)">
+  <div class="section-inner">
+    <p class="section-tag">Help Us Improve</p>
+    <h2 class="section-title">Share your feedback</h2>
+    <div class="divider"></div>
+    <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:2rem;max-width:600px">
+      <p class="sans" style="font-size:1rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem">Have you or a loved one gone through breast cancer treatments? If so, please help us improve our baskets by sharing which products helped you the most by filling out our short anonymous survey.</p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeHmkUeifXiqKa6OU3nY-Eocer2qT1SgX4-0zGLe8vQHoU1mQ/viewform?usp=header" target="_blank" class="btn-primary" style="display:inline-block">Take the Survey →</a>
+    </div>
+  </div>
+</section>
+
+<section id="impact">
+  <div class="section-inner">
+    <p class="section-tag">Data &amp; Impact</p>
+    <h2 class="section-title">What the numbers say</h2>
+    <div class="divider"></div>
+    <p class="section-sub">We take a data-driven approach to improving our baskets. Here's what our surveys have revealed so far.</p>
+    <!-- Live survey analytics — embedded from the CCB dashboard (auto-updates) -->
+    <div style="margin-top:2rem">
+      <iframe id="ccb-dashboard"
+        src="https://ccb-survey-dashboard.vercel.app/?embed=1"
+        title="Cancer Care Baskets — live survey results"
+        style="width:100%;border:0;display:block;min-height:1100px;background:transparent"
+        loading="lazy"></iframe>
+      <p style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;color:var(--muted);text-align:center;margin-top:10px">
+        Live results, updated automatically as new survey responses come in ·
+        <a href="https://ccb-survey-dashboard.vercel.app" target="_blank" rel="noopener" style="color:var(--rose);font-weight:600">Open full dashboard →</a>
+      </p>
+    </div>
+  </div>
+</section>
+<script>
+  // Resize the dashboard iframe to its content (no inner scrollbar).
+  window.addEventListener('message', function (e) {
+    if (e && e.data && e.data.type === 'ccb-embed-height') {
+      var f = document.getElementById('ccb-dashboard');
+      if (f) f.style.height = e.data.height + 'px';
+    }
+  });
+</script>
+
+<div id="donate" class="donate-band">
+  <h2>Ready to make a difference?</h2>
+  <p>Every dollar you donate goes directly toward building care baskets for breast cancer patients at Mount Sinai. No amount is too small — even $5 helps.</p>
+  <a href="https://venmo.com/Eugenia-Chu" class="btn-white">Venmo: Eugenia-Chu</a>
+  <span class="btn-outline-white">PayPal: chueugenia@yahoo.com</span>
+</div>
+
+<section id="sponsors" class="sponsors-bg">
+  <div class="section-inner">
+    <p class="section-tag">With Gratitude</p>
+    <h2 class="section-title">Our incredible sponsors</h2>
+    <div class="divider"></div>
+    <p class="section-sub" style="margin-bottom:2rem">Thank you to every person who has opened their heart and wallet to bring a smile to a stranger's face. The patients receiving these baskets are always moved by your generosity.</p>
+    <div class="sponsor-tier">
+      <div class="tier-label sans">Collaborators</div>
+      <div class="sponsor-pills">
+        <span class="pill sponsor">Carol Nguyen</span><span class="pill sponsor">Charissa Bates</span><span class="pill sponsor">Marquita Goodluck</span><span class="pill sponsor">Darlene of Grace Design Co</span><span class="pill sponsor">Payal Bawa Kapoor</span><span class="pill sponsor">Jennifer Tse &amp; WIN</span><span class="pill sponsor">Grace Laundromat</span><span class="pill sponsor">Shero USA</span><span class="pill sponsor">Chris Kale Corcoran</span><a href="https://shopstage.co" class="pill sponsor">shopstage.co</a><a href="https://carekaps.com" class="pill sponsor">carekaps.com</a><span class="pill sponsor">Dr. Plitt</span><span class="pill sponsor">Dr. Loraine Alderman, Psy.D</span>
+      </div>
+    </div>
+    <div class="sponsor-tier">
+      <div class="tier-label sans">Diamond Sponsor</div>
+      <div class="sponsor-pills"><span class="pill diamond">Cure Diva</span></div>
+    </div>
+    <div class="sponsor-tier">
+      <div class="tier-label sans">Platinum Sponsors</div>
+      <div class="sponsor-pills">
+        <span class="pill platinum">Shero USA</span><span class="pill platinum">Amy Ryan</span><span class="pill platinum">Kacey Bennett Goldstein</span><span class="pill platinum">Dennis Gingrich</span><span class="pill platinum">Chinese Learning Center of Miami</span><span class="pill platinum">Melissa Lustbader</span><span class="pill platinum">Peter Matias Cejas</span><span class="pill platinum">Nithya Nagarajan</span><span class="pill platinum">Lauren Monks</span><span class="pill platinum">Monica Otero</span><span class="pill platinum">Susan Chu</span><span class="pill platinum">Kristyn Schwartz</span>
+      </div>
+    </div>
+    <div class="sponsor-tier">
+      <div class="tier-label sans">Gold Sponsors</div>
+      <div class="sponsor-pills">
+        <span class="pill gold">Angela Chu Tam</span><span class="pill gold">Madeleine Prosperi</span><span class="pill gold">Carmen Casadella</span><span class="pill gold">Rachel Hecht Silverman</span><span class="pill gold">Camila Quesada Sharpe</span><span class="pill gold">Becky Villareal</span><span class="pill gold">YY Chan</span><span class="pill gold">Angelika Dimoka</span><span class="pill gold">Kim Brown Brannon</span><span class="pill gold">Kris Dopera Wertman</span>
+      </div>
+    </div>
+    <div class="sponsor-tier">
+      <div class="tier-label sans">Silver Sponsors</div>
+      <div class="sponsor-pills">
+        <span class="pill silver">Rose Lubin</span><span class="pill silver">Gina Zanardelli</span><span class="pill silver">Lourdes Latour</span><span class="pill silver">Jim White</span><span class="pill silver">Renee Woodward Baciak</span><span class="pill silver">Victoria T.D. Ficklin</span><span class="pill silver">Harold Gerry</span><span class="pill silver">Ileana Cruz-Bongini</span><span class="pill silver">Franky Lucero</span><span class="pill silver">Barbie Almeida</span><span class="pill silver">Lianne Clark</span><span class="pill silver">Alex Carver</span><span class="pill silver">Jessica Carden</span><span class="pill silver">Maria LaPietra Guerrero</span><span class="pill silver">Michele Wong McSween</span><span class="pill silver">Brandon Heller</span>
+      </div>
+    </div>
+    <div class="sponsor-tier">
+      <div class="tier-label sans">Sponsors</div>
+      <div class="sponsor-pills">
+        <span class="pill sponsor">Jean Lau</span><span class="pill sponsor">Helena Chu</span><span class="pill sponsor">Maritza M Mejia</span><span class="pill sponsor">Tamarra Hay</span><span class="pill sponsor">Elizabeth Beaton</span><span class="pill sponsor">Merle Shama</span><span class="pill sponsor">Nancy Goldstein</span><span class="pill sponsor">Vish Malige</span><span class="pill sponsor">Bins Latham</span><span class="pill sponsor">Tim Hartmann</span><span class="pill sponsor">Shante Hicks</span><span class="pill sponsor">Vivian Blanco</span><span class="pill sponsor">Hector Delrio</span><span class="pill sponsor">Norabeth Wiley</span><span class="pill sponsor">Meisy Koo Chong</span><span class="pill sponsor">Rina Liou</span><span class="pill sponsor">Linda Hoang</span><span class="pill sponsor">Juanita Chen</span><span class="pill sponsor">Lan Wong</span><span class="pill sponsor">Gregg Ormond</span><span class="pill sponsor">Elena Ogorodnyk</span><span class="pill sponsor">Bruce Arrington</span><span class="pill sponsor">Pipe Dream Books</span><span class="pill sponsor">Maryann Chu</span><span class="pill sponsor">Laura Lockhart</span><span class="pill sponsor">Adore Neko Books</span><span class="pill sponsor">Yanmei Li</span><span class="pill sponsor">Amy Freed Stalzer</span><span class="pill sponsor">Mike &amp; Jaclyn Addeo</span><span class="pill sponsor">BaKon Brands</span><span class="pill sponsor">Tracy Guan</span><span class="pill sponsor">Dorktales Storytime</span><span class="pill sponsor">Jessica Mason</span><span class="pill sponsor">Lara Gonzalez</span><span class="pill sponsor">Anna Smithers</span><span class="pill sponsor">Eliza Hsu Chen</span><span class="pill sponsor">Krista Poth</span><span class="pill sponsor">Marcela Brue-Lotz</span><span class="pill sponsor">Care Kaps</span><span class="pill sponsor">Anna Wong</span><span class="pill sponsor">+ anonymous donors</span>
+      </div>
+    </div>
+    <p class="sans" style="font-size:13px;color:var(--muted);margin-top:1.5rem;line-height:1.7">Special thanks to <strong>Lisa Blake Ament</strong>, who inspired this project and runs a similar one in Philadelphia.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Cancer Care Baskets</div>
+  <p>by Brandon &amp; Mom · South Florida · <a href="mailto:cancercarebaskets@gmail.com">cancercarebaskets@gmail.com</a></p>
+  <p style="margin-top:8px"><a href="https://www.instagram.com/cancercarebaskets/">Instagram</a> &nbsp;·&nbsp; <a href="https://tee.pub/lic/tGsltTQ-VpI">Merch</a> &nbsp;·&nbsp; <a href="https://eugeniachu.com">Eugenia Chu's Books</a></p>
+  <p style="margin-top:12px;font-size:11px;opacity:.5">© 2026 Cancer Care Baskets. Made with love in South Florida.</p>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }
+</script>
+</body>
+</html>
