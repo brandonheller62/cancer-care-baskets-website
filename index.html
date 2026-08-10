@@ -78,7 +78,7 @@ section{padding:70px 2rem}
 .tl-year{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:700;color:var(--rose);min-width:36px;margin-top:2px}
 .tl-desc{font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;color:var(--muted);line-height:1.6}
 .baskets-bg{background:var(--cream)}
-.basket-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+.basket-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:2rem}
 .basket-card{background:#fff;border-radius:16px;border:1px solid var(--border);padding:1.75rem}
 .basket-icon{font-size:28px;margin-bottom:12px}
 .basket-card h3{font-size:1.1rem;color:var(--text);margin-bottom:8px;font-weight:700}
@@ -214,6 +214,7 @@ footer .footer-logo{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
           <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">2024</span><span class="tl-desc">Note Writing Campaign launched to include personal encouragement in every basket</span></div>
           <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">2025</span><span class="tl-desc">Dash Merch campaign &amp; Bracelets for a Cause fundraiser launch</span></div>
           <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">2026</span><span class="tl-desc">Radiation Care Bundles added to the program</span></div>
+          <div class="tl-item"><span class="tl-dot"></span><span class="tl-year">2026</span><span class="tl-desc">Mastectomy Recovery Bag added to the program</span></div>
         </div>
       </div>
       <div>
@@ -267,6 +268,17 @@ footer .footer-logo{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
         </ul>
         <div style="margin-top:1rem;background:var(--rose-light);border-radius:10px;padding:12px 14px">
           <p class="sans" style="font-size:12px;color:var(--rose);line-height:1.6"><strong>Why it matters:</strong> After chemo, most breast cancer patients face weeks of daily radiation, which causes painful skin irritation. This bundle directly addresses those challenges.</p>
+        </div>
+      </div>
+      <div class="basket-card">
+        <div class="basket-icon">🎗️</div>
+        <h3>Mastectomy Recovery Bag</h3>
+        <p>A kit built for the physical recovery and emotional adjustment after a mastectomy. Patients deal with surgical drains, limited arm mobility, discomfort in the chest and underarm area, and everyday challenges like sleeping, dressing, and riding in a car. This kit addresses those issues directly.</p>
+        <ul class="item-list">
+          <li>Drain holders</li><li>Mastectomy pillow</li><li>Seat belt pillow</li>
+        </ul>
+        <div style="margin-top:1rem;background:var(--rose-light);border-radius:10px;padding:12px 14px">
+          <p class="sans" style="font-size:12px;color:var(--rose);line-height:1.6"><strong>Note:</strong> Contents may change based on information gathered from our patient surveys.</p>
         </div>
       </div>
     </div>
@@ -331,7 +343,7 @@ footer .footer-logo{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
     <h2 class="section-title">As seen in</h2>
     <div class="divider"></div>
     <p class="section-sub" style="margin-bottom:2rem">I have been featured in interviews sharing the story behind Cancer Care Baskets and the mission to support breast cancer patients.</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem" class="press-grid">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem" class="press-grid">
       <a href="https://canvasrebel.com/meet-brandon-heller/" target="_blank" style="text-decoration:none">
         <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.75rem;cursor:pointer">
           <p class="sans" style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:8px">CanvasRebel Magazine</p>
@@ -345,6 +357,14 @@ footer .footer-logo{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
           <p class="sans" style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:8px">YY Chani Author — Substack</p>
           <h3 style="font-size:1.1rem;color:var(--text);font-weight:700;margin-bottom:10px">An Interview with Brandon — CCB</h3>
           <p class="sans" style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px">A closer look at Brandon's journey with Cancer Care Baskets — the motivation, the mission, and what it means to make a difference in the lives of patients going through treatment.</p>
+          <span style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;font-weight:600;color:var(--rose)">Read the interview →</span>
+        </div>
+      </a>
+      <a href="https://boldjourney.com/meet-brandon-heller" target="_blank" style="text-decoration:none">
+        <div style="background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.75rem;cursor:pointer">
+          <p class="sans" style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:8px">Bold Journey</p>
+          <h3 style="font-size:1.1rem;color:var(--text);font-weight:700;margin-bottom:10px">Meet Brandon Heller</h3>
+          <p class="sans" style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px">Brandon opens up about the resilience behind Cancer Care Baskets — how a project started in elementary school grew into a lasting partnership with Mount Sinai, and why bringing comfort to patients keeps him going.</p>
           <span style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;font-weight:600;color:var(--rose)">Read the interview →</span>
         </div>
       </a>
@@ -410,7 +430,7 @@ footer .footer-logo{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
     <div class="sponsor-tier">
       <div class="tier-label sans">Collaborators</div>
       <div class="sponsor-pills">
-        <span class="pill sponsor">Carol Nguyen</span><span class="pill sponsor">Charissa Bates</span><span class="pill sponsor">Marquita Goodluck</span><span class="pill sponsor">Darlene of Grace Design Co</span><span class="pill sponsor">Payal Bawa Kapoor</span><span class="pill sponsor">Jennifer Tse &amp; WIN</span><span class="pill sponsor">Grace Laundromat</span><span class="pill sponsor">Shero USA</span><span class="pill sponsor">Chris Kale Corcoran</span><a href="https://shopstage.co" class="pill sponsor">shopstage.co</a><a href="https://carekaps.com" class="pill sponsor">carekaps.com</a><span class="pill sponsor">Dr. Plitt</span><span class="pill sponsor">Dr. Loraine Alderman, Psy.D</span>
+        <span class="pill sponsor">Carol Nguyen</span><span class="pill sponsor">Charissa Bates</span><span class="pill sponsor">Marquita Goodluck</span><span class="pill sponsor">Darlene of Grace Design Co</span><span class="pill sponsor">Payal Bawa Kapoor</span><span class="pill sponsor">Jennifer Tse &amp; WIN</span><span class="pill sponsor">Grace Laundromat</span><span class="pill sponsor">Shero USA</span><span class="pill sponsor">Chris Kale Corcoran</span><a href="https://shopstage.co" class="pill sponsor">shopstage.co</a><a href="https://carekaps.com" class="pill sponsor">carekaps.com</a><span class="pill sponsor">Dr. Plitt</span><span class="pill sponsor">Dr. Loraine Alderman, Psy.D</span><a href="https://305pinkpack.com" class="pill sponsor">305pinkpack.com</a><span class="pill sponsor">All Things Breast Cancer</span><span class="pill sponsor">Hearts Woven</span><span class="pill sponsor">Her Care Miami</span><span class="pill sponsor">Erin Pallard LCSW</span><span class="pill sponsor">Winners Circle</span><span class="pill sponsor">BeeCure</span>
       </div>
     </div>
     <div class="sponsor-tier">
