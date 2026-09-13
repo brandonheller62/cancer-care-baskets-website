@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "all-caps-body",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-09-13T15:09:40.779Z",
+        "reason": "Claude triage: the flagged text is the 41-char hero eyebrow 'South Florida · Mount Sinai Cancer Center', a short uppercase label that is part of the site's existing style, not a body passage"
+      }
+    ]
+  }
+}

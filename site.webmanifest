@@ -1,6 +1,6 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "Cancer Care Baskets",
+  "short_name": "Care Baskets",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
