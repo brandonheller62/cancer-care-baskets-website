@@ -37,6 +37,8 @@ python3 -m http.server 8080
 
 The **Data & Impact** section embeds a separately-hosted analytics dashboard via an `<iframe>` pointing at [ccb-survey-dashboard.vercel.app](https://ccb-survey-dashboard.vercel.app). It loads lazily and auto-resizes to its content height through a small `postMessage` handshake, so results stay live and in sync as new survey responses come in — no changes to this repo required.
 
+📊 **Dashboard source code:** [brandonheller62/ccb-survey-dashboard](https://github.com/brandonheller62/ccb-survey-dashboard)
+
 ## Deployment
 
 Hosted on **Netlify** with continuous deployment. Every push to `main` triggers a new deploy.
