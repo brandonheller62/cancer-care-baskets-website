@@ -28,6 +28,7 @@ Everything lives in one file: **`index.html`**
 
 | File | Purpose |
 |------|---------|
+| `logo.png` | Header logo (104px, shown at 52px; resized from `web-app-manifest-512x512.png`) |
 | `dash.jpg` | Photo of Dash the dog in CCB backpack |
 | `brandon-gail-2018.jpg`, `brandon-gail-2026.jpg` | Brandon with Gail Brown at Mount Sinai (keep photos ~1200px max) |
 | `ccb-video-sm.mov` | Hero video (H.264, plays everywhere) |
