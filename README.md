@@ -20,7 +20,8 @@ A single-page static website. No build step, no dependencies.
 |------|---------|
 | `index.html` | The entire site — HTML, CSS (in a `<style>` block), and minimal inline JS |
 | `dash.jpg`, `brandon-gail-*.jpg` | Photos used throughout the page |
-| `ccb-video-sm.mov` | Hero section video |
+| `ccb-video.mp4` | "Watch our story" video |
+| `frames/`, `hero-end.jpg` | Scroll-scrubbed hero image sequence and its static fallback |
 | `favicon.*`, `apple-touch-icon.png`, `web-app-manifest-*.png` | Icons and PWA assets |
 | `site.webmanifest` | PWA manifest |
 
