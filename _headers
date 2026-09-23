@@ -1,5 +1,5 @@
 # Netlify: let browsers cache media for a day (filenames aren't hashed, so keep it short).
-/ccb-video-sm.mov
+/ccb-video.mp4
   Cache-Control: public, max-age=86400
 /video-poster.jpg
   Cache-Control: public, max-age=86400
