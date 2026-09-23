@@ -39,6 +39,7 @@
 </script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 :root{
   --rose:#aa4063;
   --rose-dark:#8e2f4f;
@@ -151,9 +152,10 @@ section{padding:70px 2rem;scroll-margin-top:64px}
 /* Story */
 .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;margin-top:2rem}
 .story-text p{color:var(--muted);line-height:1.9;margin-bottom:1rem;font-size:1rem}
-.story-photo{margin:1.25rem 0}
+.story-photo{margin:1.25rem 0;overflow:hidden;border-radius:14px}
 .story-photo img{width:100%;height:320px;object-fit:cover;object-position:center top;border-radius:14px;display:block}
 .then-now{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.5rem}
+.photo-frame{overflow:hidden;border-radius:14px}
 .then-now img{width:100%;border-radius:14px;display:block;object-fit:cover;aspect-ratio:3/4}
 .then-now figcaption{font-family:var(--sans);font-size:11px;color:var(--muted);text-align:center;margin-top:6px;letter-spacing:1px;text-transform:uppercase;font-weight:600}
 .then-now-note{font-family:var(--sans);font-size:12px;color:var(--muted);text-align:center;font-style:italic;margin-bottom:1.5rem}
@@ -162,10 +164,13 @@ section{padding:70px 2rem;scroll-margin-top:64px}
 .story-card figcaption{display:block;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--rose);font-weight:600}
 .liaison{margin-top:1.5rem;background:var(--gold-light);border-radius:14px;padding:1.25rem;border:1px solid var(--gold-border)}
 .liaison p{font-family:var(--sans);font-size:13px;color:var(--gold-dark);line-height:1.7}
-.timeline{margin-top:2rem;display:flex;flex-direction:column;gap:0;list-style:none}
+.timeline-wrap{position:relative;margin-top:2rem}
+.timeline{display:flex;flex-direction:column;gap:0;list-style:none}
+.tl-line{display:none;position:absolute;left:8px;top:0;width:2px;background:var(--rose);transform-origin:top;z-index:1;pointer-events:none}
+.motion .tl-line{display:block}
 .tl-item{display:flex;gap:1rem;align-items:flex-start;padding-bottom:20px;border-left:2px solid var(--border);margin-left:8px;padding-left:20px;position:relative}
 .tl-item:last-child{border-left:2px solid transparent}
-.tl-dot{position:absolute;left:-8px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--rose);border:2px solid #fff;box-shadow:0 0 0 2px var(--rose)}
+.tl-dot{z-index:2;position:absolute;left:-8px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--rose);border:2px solid #fff;box-shadow:0 0 0 2px var(--rose)}
 .tl-year{font-family:var(--sans);font-size:12px;font-weight:700;color:var(--rose);min-width:36px;margin-top:2px}
 .tl-desc{font-family:var(--sans);font-size:14px;color:var(--muted);line-height:1.6}
 
@@ -190,10 +195,16 @@ section{padding:70px 2rem;scroll-margin-top:64px}
 .btn-small{display:inline-flex;align-items:center;min-height:44px;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--rose);border:1.5px solid var(--rose);padding:0 18px;border-radius:22px;transition:background .2s,color .2s}
 .btn-small:hover{background:var(--rose);color:#fff}
 
+/* Cards: gentle lift on hover */
+.basket-card,.help-card,.press-card{transition:transform .45s ease,box-shadow .45s ease,border-color .2s}
+@media(hover:hover){
+  .basket-card:hover,.help-card:hover,.press-card:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(170,64,99,.1)}
+}
+
 /* Press */
 .press-bg{background:var(--cream)}
 .press-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
-.press-card{display:block;background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.75rem;transition:border-color .2s}
+.press-card{display:block;background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.75rem}
 .press-card:hover{border-color:var(--rose-mid)}
 .press-outlet{font-family:var(--sans);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:8px}
 .press-card h3{font-size:1.1rem;color:var(--text);font-weight:700;margin-bottom:10px}
@@ -268,6 +279,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .hamburger span{transition:none}
+  .basket-card:hover,.help-card:hover,.press-card:hover{transform:none}
 }
 </style>
 </head>
@@ -377,6 +389,8 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
         </div>
         <p>Since then, I've seen breast cancer touch even more friends and family, including my grandma in 2024 and my mom in 2025. Thankfully, they are both doing well now. That only deepens our commitment to this work.</p>
         <p>Together, we partner with <strong>Mount Sinai Comprehensive Cancer Center</strong> in South Florida, delivering baskets to patients and taking a data-driven approach to continually improve what we include.</p>
+        <div class="timeline-wrap">
+        <span class="tl-line" aria-hidden="true"></span>
         <ul class="timeline">
           <li class="tl-item"><span class="tl-dot" aria-hidden="true"></span><span class="tl-year">2018</span><span class="tl-desc">Project launched with first basket delivery to Mount Sinai</span></li>
           <li class="tl-item"><span class="tl-dot" aria-hidden="true"></span><span class="tl-year">2023</span><span class="tl-desc">Switched to backpacks for greater patient utility</span></li>
@@ -385,15 +399,16 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
           <li class="tl-item"><span class="tl-dot" aria-hidden="true"></span><span class="tl-year">2026</span><span class="tl-desc">Radiation Care Bundles added to the program</span></li>
           <li class="tl-item"><span class="tl-dot" aria-hidden="true"></span><span class="tl-year">2026</span><span class="tl-desc">Mastectomy Recovery Bags added to the program</span></li>
         </ul>
+        </div>
       </div>
       <div>
         <div class="then-now">
           <figure>
-            <img src="brandon-gail-2018.jpg" alt="Brandon meeting Gail Brown at Mount Sinai in 2018" width="768" height="1024" loading="lazy" decoding="async"/>
+            <div class="photo-frame"><img src="brandon-gail-2018.jpg" alt="Brandon meeting Gail Brown at Mount Sinai in 2018" width="768" height="1024" loading="lazy" decoding="async"/></div>
             <figcaption>2018</figcaption>
           </figure>
           <figure>
-            <img src="brandon-gail-2026.jpg" alt="Brandon delivering baskets to Gail Brown at Mount Sinai in 2026" width="900" height="1200" loading="lazy" decoding="async"/>
+            <div class="photo-frame"><img src="brandon-gail-2026.jpg" alt="Brandon delivering baskets to Gail Brown at Mount Sinai in 2026" width="900" height="1200" loading="lazy" decoding="async"/></div>
             <figcaption>2026</figcaption>
           </figure>
         </div>
@@ -638,6 +653,9 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
   if (MOTION) {
     gsap.registerPlugin(ScrollTrigger);
     initHero();
+    initReveals();
+    initTimeline();
+    initParallax();
   }
 
   // Intro: the animation itself is CSS. Here: skip on any input, then remove it.
@@ -749,6 +767,71 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
     const rise = { opacity: 1, y: 0, duration: 0.28, ease: 'power1.out' };
     hero.querySelectorAll('.hero-reveal').forEach((el, i) => {
       tl.fromTo(el, { opacity: 0, y: 28 }, rise, [0.02, 0.1, 0.26, 0.42, 0.6][i]);
+    });
+
+    // Stats count up from 0 as they appear (the year stays a year).
+    const counters = [...hero.querySelectorAll('.stat-n[data-count]')];
+    const show = (el, v) => { el.textContent = Math.round(v).toLocaleString('en-US') + (el.dataset.suffix || ''); };
+    counters.forEach(el => show(el, 0));
+    let counted = false;
+    tl.call(() => {
+      if (counted) return;
+      counted = true;
+      counters.forEach(el => {
+        const n = { v: 0 };
+        gsap.to(n, { v: +el.dataset.count, duration: 1.8, ease: 'power2.out', onUpdate: () => show(el, n.v) });
+      });
+    }, null, 0.62);
+  }
+
+  // Section headings fade up; cards stagger in. Calm: small distance, slow ease-out.
+  function initReveals() {
+    document.querySelectorAll('main section .section-inner').forEach(inner => {
+      const heads = [...inner.children].filter(el => el.matches('.section-tag, .section-title, .divider'));
+      if (!heads.length) return;
+      gsap.from(heads, {
+        opacity: 0, y: 22, duration: 0.9, ease: 'power2.out', stagger: 0.12, clearProps: 'transform',
+        scrollTrigger: { trigger: heads[0], start: 'top 88%', once: true }
+      });
+    });
+    const cards = gsap.utils.toArray('.basket-card, .help-card, .press-card');
+    gsap.set(cards, { opacity: 0, y: 28 });
+    ScrollTrigger.batch(cards, {
+      start: 'top 90%',
+      once: true,
+      onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', stagger: 0.1, clearProps: 'transform' })
+    });
+  }
+
+  // Our Story timeline: a rose line draws down the track as you scroll; dots appear as it reaches them.
+  function initTimeline() {
+    const wrap = document.querySelector('.timeline-wrap');
+    const line = wrap.querySelector('.tl-line');
+    const items = wrap.querySelectorAll('.tl-item');
+    const last = items[items.length - 1];
+    // The line spans the track: from the top of the list to the last dot.
+    const fit = () => { line.style.top = '0px'; line.style.height = (last.offsetTop + 11) + 'px'; };
+    fit();
+    ScrollTrigger.addEventListener('refreshInit', fit);
+    gsap.fromTo(line, { scaleY: 0 }, {
+      scaleY: 1, ease: 'none',
+      scrollTrigger: { trigger: wrap, start: 'top 70%', end: () => 'top+=' + (last.offsetTop + 11) + ' 70%', scrub: 0.5, invalidateOnRefresh: true }
+    });
+    items.forEach(item => {
+      gsap.from(item.querySelector('.tl-dot'), {
+        scale: 0, opacity: 0, duration: 0.6, ease: 'power2.out',
+        scrollTrigger: { trigger: item, start: 'top 70%', toggleActions: 'play none none reverse' }
+      });
+    });
+  }
+
+  // Gentle parallax on Dash and the Brandon and Gail photos.
+  function initParallax() {
+    document.querySelectorAll('.story-photo img, .then-now .photo-frame img').forEach(img => {
+      gsap.fromTo(img, { yPercent: -5, scale: 1.12 }, {
+        yPercent: 5, scale: 1.12, ease: 'none',
+        scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true }
+      });
     });
   }
 
