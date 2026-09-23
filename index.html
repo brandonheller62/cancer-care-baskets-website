@@ -215,7 +215,15 @@ section{padding:70px 2rem;scroll-margin-top:64px}
 .survey-bg{background:var(--rose-light)}
 .survey-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:2rem;max-width:600px}
 .survey-card p{font-size:1rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem}
-.dashboard-wrap{margin-top:2rem}
+.chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;margin-top:2rem}
+.chart-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.25rem 1.25rem;min-width:0}
+.chart-title{font-family:var(--sans);font-size:14px;font-weight:700;color:var(--text);margin-bottom:1rem}
+.chart-box{position:relative;height:280px}
+.chart-box--tall{height:390px}
+.chart-box--mid{height:320px}
+.dashboard-heading{font-size:1.25rem;font-weight:700;color:var(--text);margin-top:3.5rem;margin-bottom:6px}
+.dashboard-intro{font-family:var(--sans);font-size:14px;color:var(--muted);line-height:1.7}
+.dashboard-wrap{margin-top:1.25rem}
 .dashboard-wrap iframe{width:100%;border:0;display:block;min-height:1100px;background:transparent}
 .dashboard-wrap.failed iframe{display:none}
 .dashboard-fallback{display:none;background:var(--cream);border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:center;font-family:var(--sans);font-size:14px;color:var(--muted);line-height:1.7}
@@ -264,7 +272,8 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
   .mobile-menu.open{display:none}
 }
 @media(max-width:640px){
-  .story-grid,.basket-grid,.press-grid{grid-template-columns:1fr}
+  .story-grid,.basket-grid,.press-grid,.chart-grid{grid-template-columns:1fr}
+  .chart-card{padding:1.25rem 1rem 1rem}
   .site-nav{padding:0 1rem 0 1.25rem}
   .hero{padding:0 1rem}
   .hero .hero-tag{font-size:10px;letter-spacing:1.5px;margin-bottom:12px}
@@ -562,6 +571,28 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
     <h2 class="section-title">What the numbers say</h2>
     <div class="divider"></div>
     <p class="section-sub">We take a data-driven approach to improving our baskets. Here's what our surveys have revealed so far.</p>
+    <!-- Survey highlights: Chart.js, loaded and drawn when each chart scrolls into view (see initCharts) -->
+    <div class="chart-grid">
+      <figure class="chart-card">
+        <figcaption class="chart-title">Who responded to our survey</figcaption>
+        <div class="chart-box"><canvas data-chart="respondents" role="img" aria-label="Donut chart, 58 patients surveyed: 29 had both chemotherapy and radiation, 16 radiation, 13 chemotherapy."></canvas></div>
+      </figure>
+      <figure class="chart-card">
+        <figcaption class="chart-title">Where patients are in their journey</figcaption>
+        <div class="chart-box"><canvas data-chart="journey" role="img" aria-label="Bar chart: just starting 8, midway through treatment 10, near completion 7, completed treatment 33."></canvas></div>
+      </figure>
+      <figure class="chart-card">
+        <figcaption class="chart-title">Most-requested chemotherapy items</figcaption>
+        <div class="chart-box chart-box--tall"><canvas data-chart="chemo" role="img" aria-label="Bar chart of most-requested chemotherapy items: lip balm 33, comfy socks 28, aluminum free deodorant 25, blanket 25, hard candy 24, notes of encouragement 24, water bottle 23, alcohol free mouth rinse 21, tissues and hand wipes 21, journal 16."></canvas></div>
+      </figure>
+      <figure class="chart-card">
+        <figcaption class="chart-title">Most-requested radiation therapy items</figcaption>
+        <div class="chart-box chart-box--mid"><canvas data-chart="radiation" role="img" aria-label="Bar chart of most-requested radiation therapy items: Aquaphor 33, aloe vera gel 30, Aveeno lotion 20, notes of encouragement 18, lip balm 18, calendula cream 18, Dove soap 16."></canvas></div>
+      </figure>
+    </div>
+
+    <h3 class="dashboard-heading">Live survey dashboard</h3>
+    <p class="dashboard-intro">Explore every response. This dashboard updates automatically as new surveys come in.</p>
     <!-- Live survey analytics, embedded from the CCB dashboard (auto-updates) -->
     <div class="dashboard-wrap" id="dashboardWrap">
       <iframe id="ccb-dashboard"
@@ -650,12 +681,135 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
   if (root.classList.contains('motion') && !(window.gsap && window.ScrollTrigger)) root.classList.remove('motion');
   const MOTION = root.classList.contains('motion');
   initIntro();
+  initCharts();
   if (MOTION) {
     gsap.registerPlugin(ScrollTrigger);
     initHero();
     initReveals();
     initTimeline();
     initParallax();
+    // The pinned hero adds scroll length after the browser's initial jump to a #hash,
+    // so re-align deep links (e.g. /#donate) once ScrollTrigger has laid out.
+    if (location.hash.length > 1) {
+      const target = document.getElementById(location.hash.slice(1));
+      if (target) {
+        ScrollTrigger.refresh();
+        requestAnimationFrame(() => target.scrollIntoView({ behavior: 'instant' }));
+      }
+    }
+  }
+
+  // Impact charts. Chart.js is only fetched once #impact is near, and each chart is
+  // created as it scrolls into view so its build-in animation is actually seen.
+  function initCharts() {
+    const canvases = document.querySelectorAll('canvas[data-chart]');
+    const ROSE = '#b5476a', PINK = '#e8a0b4', GOLD = '#c9953a';
+    const SANS = "'Helvetica Neue', Arial, sans-serif";
+    const specs = {
+      respondents: {
+        type: 'doughnut',
+        data: { labels: ['Chemotherapy', 'Radiation', 'Both'], datasets: [{ data: [13, 16, 29], backgroundColor: [PINK, GOLD, ROSE], borderColor: '#fff', borderWidth: 3, hoverOffset: 6 }] },
+        options: {
+          cutout: '66%',
+          plugins: {
+            legend: { position: 'bottom', labels: { usePointStyle: true, pointStyle: 'circle', padding: 16 } },
+            tooltip: { callbacks: { label: c => ' ' + c.label + ': ' + c.parsed + ' patients (' + Math.round(c.parsed / 58 * 100) + '%)' } },
+            centerText: { value: '58', label: 'patients surveyed' }
+          }
+        }
+      },
+      journey: {
+        type: 'bar',
+        data: { labels: [['Just', 'starting'], ['Midway through', 'treatment'], ['Near', 'completion'], ['Completed', 'treatment']], datasets: [{ data: [8, 10, 7, 33], backgroundColor: ROSE, borderRadius: 6, maxBarThickness: 44 }] },
+        options: { plugins: { tooltip: { callbacks: { label: c => ' ' + c.parsed.y + ' patients' } } }, scales: valueScales('y') }
+      },
+      chemo: hbar(['Lip balm', 'Comfy socks', 'Aluminum free deodorant', 'Blanket', 'Hard candy', 'Notes of encouragement', 'Water bottle', 'Alcohol free mouth rinse', 'Tissues/hand wipes', 'Journal'], [33, 28, 25, 25, 24, 24, 23, 21, 21, 16], ROSE),
+      radiation: hbar(['Aquaphor', 'Aloe Vera gel', 'Aveeno lotion', 'Notes of encouragement', 'Lip balm', 'Calendula cream', 'Dove soap'], [33, 30, 20, 18, 18, 18, 16], GOLD)
+    };
+    function valueScales(axis) {
+      const value = { beginAtZero: true, grid: { color: '#f0dde4' }, border: { display: false }, ticks: { precision: 0 } };
+      const cat = { grid: { display: false }, border: { color: '#f0dde4' }, ticks: { maxRotation: 0, autoSkip: false } };
+      return axis === 'y' ? { y: value, x: cat } : { x: value, y: cat };
+    }
+    function hbar(labels, data, color) {
+      return {
+        type: 'bar',
+        data: { labels, datasets: [{ data, backgroundColor: color, borderRadius: 5, maxBarThickness: 20 }] },
+        options: { indexAxis: 'y', plugins: { tooltip: { callbacks: { label: c => ' ' + c.parsed.x + ' patients chose this' } } }, scales: wrapLabels(valueScales('x')) }
+      };
+    }
+    // On phone-width charts, break long item names onto two lines instead of clipping them.
+    function wrapLabels(scales) {
+      scales.y.ticks = {
+        callback(value) {
+          const label = this.getLabelForValue(value);
+          if (this.chart.width >= 420 || label.length <= 14) return label;
+          const mid = label.indexOf(' ', Math.floor(label.length / 2) - 3);
+          return mid > 0 ? [label.slice(0, mid), label.slice(mid + 1)] : label;
+        }
+      };
+      return scales;
+    }
+    // "58 / patients surveyed" in the donut hole.
+    const centerText = {
+      id: 'centerText',
+      afterDraw(chart, args, opts) {
+        if (!opts || !opts.value) return;
+        const { ctx, chartArea: a } = chart;
+        const x = (a.left + a.right) / 2, y = (a.top + a.bottom) / 2;
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#2c1a1a';
+        ctx.font = "700 30px Georgia, serif";
+        ctx.textBaseline = 'alphabetic';
+        ctx.fillText(opts.value, x, y + 4);
+        ctx.fillStyle = '#7a5c5c';
+        ctx.font = '12px ' + SANS;
+        ctx.textBaseline = 'top';
+        ctx.fillText(opts.label, x, y + 10);
+        ctx.restore();
+      }
+    };
+
+    let libPromise;
+    const loadLib = () => libPromise || (libPromise = new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.1/chart.umd.min.js';
+      s.integrity = 'sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ';
+      s.crossOrigin = 'anonymous';
+      s.onload = () => {
+        const d = Chart.defaults;
+        d.font.family = SANS;
+        d.font.size = 12;
+        d.color = '#7a5c5c';
+        d.maintainAspectRatio = false;
+        d.animation.duration = 1400;
+        d.animation.easing = 'easeOutQuart';
+        d.plugins.legend.display = false;
+        Object.assign(d.plugins.tooltip, { backgroundColor: '#2c1a1a', padding: 10, cornerRadius: 8, displayColors: false, titleFont: { weight: '600' } });
+        d.plugins.tooltip.callbacks.title = items => [].concat(items[0].label).join(' ');
+        Chart.register(centerText);
+        resolve();
+      };
+      s.onerror = reject;
+      document.head.appendChild(s);
+    }));
+
+    const draw = canvas => loadLib().then(() => {
+      const spec = specs[canvas.dataset.chart];
+      if (spec.type === 'doughnut') spec.options.plugins.legend.display = true;
+      if (!MOTION) spec.options.animation = false;
+      new Chart(canvas, spec);
+    }).catch(() => {});
+
+    // Start fetching the library a little before #impact arrives.
+    new IntersectionObserver((entries, io) => {
+      if (entries.some(e => e.isIntersecting)) { loadLib().catch(() => {}); io.disconnect(); }
+    }, { rootMargin: '800px 0px' }).observe(document.getElementById('impact'));
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) { io.unobserve(e.target); draw(e.target); }
+    }), { threshold: 0.35 });
+    canvases.forEach(c => io.observe(c));
   }
 
   // Intro: the animation itself is CSS. Here: skip on any input, then remove it.
