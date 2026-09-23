@@ -37,7 +37,7 @@ Everything lives in one file: **`index.html`**
 
 - `frames/frame_001.webp` to `frame_124.webp` (1600x900) are drawn to `.hero-canvas`, cover-fit, DPR capped at 2, crop biased to 60% horizontal under 768px wide.
 - Frame 1 is `<link rel="preload">`ed and is also the CSS background of `.hero` so there is never a blank hero. The rest load 4 at a time after frame 1, coarse to fine (every 16th, 8th, ...), and `render()` draws the nearest loaded frame, so the scrub never waits on the network.
-- ScrollTrigger pins `.hero` from `top <nav height>` for `+=150%` with `scrub: 0.5`. One timeline drives the frame index, the overlay strength, and the `.hero-reveal` elements (tag, h1, text, buttons, stats) which rise in and are fully visible by the last frame. Stat counters (`data-count`, optional `data-prefix`/`data-suffix`) count up at 62% of the scrub.
+- ScrollTrigger pins `.hero` from `top <nav height>` for `+=100%` with `scrub: 0.5`. The scrub drives only the frame index and the overlay strength. The `.hero-reveal` elements (tag, h1, text, buttons, stats) are NOT scroll-driven: they fade up on a timer as the intro starts fading out (or right after load when there is no intro), so the pitch and Donate button show without scrolling. Stat counters (`data-count`, optional `data-prefix`/`data-suffix`) count up alongside that fade.
 - Reduced motion: no intro, no pin, no canvas; `.hero` shows `hero-end.jpg` as a static background with everything visible.
 - Motion should stay calm (audience includes cancer patients): small distances (about 20 to 30px), slow ease-outs, no bounce, no fast loops.
 

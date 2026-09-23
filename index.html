@@ -660,11 +660,11 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
   const root = document.documentElement;
   if (root.classList.contains('motion') && !(window.gsap && window.ScrollTrigger)) root.classList.remove('motion');
   const MOTION = root.classList.contains('motion');
-  initIntro();
+  const introEnding = initIntro();
   initMarquee();
   if (MOTION) {
     gsap.registerPlugin(ScrollTrigger);
-    initHero();
+    initHero(introEnding);
     initReveals();
     initTimeline();
     initParallax();
@@ -698,20 +698,28 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
   }
 
   // Intro: the animation itself is CSS. Here: skip on any input, then remove it.
+  // Returns a promise that resolves as the intro starts fading out (or right away if
+  // there is none), so the hero text can fade in underneath it.
   function initIntro() {
     const intro = document.getElementById('intro');
-    if (!root.classList.contains('intro-play')) { intro.remove(); return; }
+    if (!root.classList.contains('intro-play')) { intro.remove(); return Promise.resolve(); }
+    let ending;
+    const endingP = new Promise(r => { ending = r; });
     const skipEvents = ['wheel', 'touchstart', 'keydown', 'pointerdown', 'scroll'];
-    const skip = () => { intro.classList.add('skip'); stopListening(); };
+    const skip = () => { intro.classList.add('skip'); stopListening(); ending(); };
     const stopListening = () => skipEvents.forEach(ev => window.removeEventListener(ev, skip));
-    const finish = () => { stopListening(); intro.remove(); root.classList.remove('intro-play'); };
+    const finish = () => { stopListening(); ending(); intro.remove(); root.classList.remove('intro-play'); };
     skipEvents.forEach(ev => window.addEventListener(ev, skip, { passive: true, once: true }));
+    intro.addEventListener('animationstart', e => { if (e.target === intro) ending(); });
     intro.addEventListener('animationend', e => { if (e.target === intro) finish(); });
     setTimeout(finish, 3000); // safety net
+    return endingP;
   }
 
   // Hero: 124 webp frames drawn to a canvas, scrubbed by scroll while the hero is pinned.
-  function initHero() {
+  // The text is not scroll-driven: it fades in on a timer so the pitch and the Donate
+  // button are visible without scrolling.
+  function initHero(introEnding) {
     const hero = document.getElementById('hero');
     const canvas = hero.querySelector('.hero-canvas');
     const ctx = canvas.getContext('2d');
@@ -787,7 +795,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
       scrollTrigger: {
         trigger: hero,
         start: () => 'top ' + nav.offsetHeight,
-        end: '+=150%',
+        end: '+=100%',
         pin: true,
         scrub: 0.5,
         anticipatePin: 1,
@@ -802,25 +810,20 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
     });
     tl.to(playhead, { frame: COUNT - 1, duration: 1, onUpdate: () => { target = Math.round(playhead.frame); render(); } }, 0);
     tl.fromTo(hero.querySelector('.hero-overlay'), { opacity: 0.45 }, { opacity: 1, duration: 0.5 }, 0);
-    // Text rises in across the scrub and is fully shown by the last frame.
-    const rise = { opacity: 1, y: 0, duration: 0.28, ease: 'power1.out' };
-    hero.querySelectorAll('.hero-reveal').forEach((el, i) => {
-      tl.fromTo(el, { opacity: 0, y: 28 }, rise, [0.02, 0.1, 0.26, 0.42, 0.6][i]);
-    });
 
-    // Stats count up from 0 as they appear (the year stays a year).
+    // Text fades up as the intro clears (or shortly after load), stats count up with it.
     const counters = [...hero.querySelectorAll('.stat-n[data-count]')];
     const show = (el, v) => { el.textContent = (el.dataset.prefix || '') + Math.round(v).toLocaleString('en-US') + (el.dataset.suffix || ''); };
     counters.forEach(el => show(el, 0));
-    let counted = false;
-    tl.call(() => {
-      if (counted) return;
-      counted = true;
+    introEnding.then(() => {
+      gsap.fromTo(hero.querySelectorAll('.hero-reveal'), { opacity: 0, y: 20 }, {
+        opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', stagger: 0.12, delay: 0.15, clearProps: 'transform'
+      });
       counters.forEach(el => {
         const n = { v: 0 };
-        gsap.to(n, { v: +el.dataset.count, duration: 1.8, ease: 'power2.out', onUpdate: () => show(el, n.v) });
+        gsap.to(n, { v: +el.dataset.count, duration: 1.8, delay: 0.7, ease: 'power2.out', onUpdate: () => show(el, n.v) });
       });
-    }, null, 0.62);
+    });
   }
 
   // Section headings fade up; cards stagger in. Calm: small distance, slow ease-out.
