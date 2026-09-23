@@ -256,6 +256,12 @@ a.pill:hover{border-color:var(--rose-mid)}
 .pill.gold{background:var(--gold-light);color:var(--gold-dark);border:1px solid #e8c97a}
 .pill.silver{background:#f5f5f5;color:#555;border:1px solid #ddd}
 .pill.sponsor{background:#fff;color:var(--muted);border:1px solid var(--border);font-size:12px}
+.marquee{overflow:hidden;padding:10px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.marquee-track{display:flex;width:max-content;animation:marquee var(--marquee-duration,140s) linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee .sponsor-pills{flex-wrap:nowrap;padding-right:8px}
+.marquee .pill{flex-shrink:0;white-space:nowrap}
+@keyframes marquee{to{transform:translateX(-50%)}}
 .sponsors-thanks{font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:1.5rem;line-height:1.7}
 
 /* Footer */
@@ -289,6 +295,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
   html{scroll-behavior:auto}
   .hamburger span{transition:none}
   .basket-card:hover,.help-card:hover,.press-card:hover{transform:none}
+  .marquee-track{animation:none}
 }
 </style>
 </head>
@@ -655,7 +662,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
     </div>
     <div class="sponsor-tier">
       <h3 class="tier-label">Sponsors</h3>
-      <div class="sponsor-pills">
+      <div class="sponsor-pills" data-marquee>
         <span class="pill sponsor">Jean Lau</span><span class="pill sponsor">Helena Chu</span><span class="pill sponsor">Maritza M Mejia</span><span class="pill sponsor">Tamarra Hay</span><span class="pill sponsor">Elizabeth Beaton</span><span class="pill sponsor">Merle Shama</span><span class="pill sponsor">Nancy Goldstein</span><span class="pill sponsor">Vish Malige</span><span class="pill sponsor">Bins Latham</span><span class="pill sponsor">Tim Hartmann</span><span class="pill sponsor">Shante Hicks</span><span class="pill sponsor">Vivian Blanco</span><span class="pill sponsor">Hector Delrio</span><span class="pill sponsor">Norabeth Wiley</span><span class="pill sponsor">Meisy Koo Chong</span><span class="pill sponsor">Rina Liou</span><span class="pill sponsor">Linda Hoang</span><span class="pill sponsor">Juanita Chen</span><span class="pill sponsor">Lan Wong</span><span class="pill sponsor">Gregg Ormond</span><span class="pill sponsor">Elena Ogorodnyk</span><span class="pill sponsor">Bruce Arrington</span><span class="pill sponsor">Pipe Dream Books</span><span class="pill sponsor">Maryann Chu</span><span class="pill sponsor">Laura Lockhart</span><span class="pill sponsor">Adore Neko Books</span><span class="pill sponsor">Yanmei Li</span><span class="pill sponsor">Amy Freed Stalzer</span><span class="pill sponsor">Mike &amp; Jaclyn Addeo</span><span class="pill sponsor">BaKon Brands</span><span class="pill sponsor">Tracy Guan</span><span class="pill sponsor">Dorktales Storytime</span><span class="pill sponsor">Jessica Mason</span><span class="pill sponsor">Lara Gonzalez</span><span class="pill sponsor">Anna Smithers</span><span class="pill sponsor">Eliza Hsu Chen</span><span class="pill sponsor">Krista Poth</span><span class="pill sponsor">Marcela Brue-Lotz</span><span class="pill sponsor">Care Kaps</span><span class="pill sponsor">Anna Wong</span><span class="pill sponsor">Jessica Gottschalk</span><span class="pill sponsor">+ anonymous donors</span>
       </div>
     </div>
@@ -682,6 +689,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
   const MOTION = root.classList.contains('motion');
   initIntro();
   initCharts();
+  initMarquee();
   if (MOTION) {
     gsap.registerPlugin(ScrollTrigger);
     initHero();
@@ -810,6 +818,24 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
       if (e.isIntersecting) { io.unobserve(e.target); draw(e.target); }
     }), { threshold: 0.35 });
     canvases.forEach(c => io.observe(c));
+  }
+
+  // Sponsors tier: a slow, endless row that pauses on hover. The row is doubled so the
+  // loop is seamless; the copy is hidden from screen readers. Skipped for reduced motion.
+  function initMarquee() {
+    const pills = document.querySelector('[data-marquee]');
+    if (!pills || !matchMedia('(prefers-reduced-motion: no-preference)').matches) return;
+    const marquee = document.createElement('div');
+    const track = document.createElement('div');
+    marquee.className = 'marquee';
+    track.className = 'marquee-track';
+    pills.replaceWith(marquee);
+    marquee.appendChild(track);
+    const copy = pills.cloneNode(true);
+    copy.setAttribute('aria-hidden', 'true');
+    track.append(pills, copy);
+    // Constant, calm speed (about 30px per second) whatever the list length.
+    track.style.setProperty('--marquee-duration', Math.round(pills.offsetWidth / 30) + 's');
   }
 
   // Intro: the animation itself is CSS. Here: skip on any input, then remove it.
