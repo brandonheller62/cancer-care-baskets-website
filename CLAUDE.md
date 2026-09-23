@@ -14,7 +14,7 @@ No build step. Serve the folder with any static file server (opening the file di
 python3 -m http.server 8080   # then visit http://localhost:8080
 ```
 
-Third-party scripts come from cdnjs with pinned versions and SRI hashes: GSAP 3.15.0 + ScrollTrigger (animation), Chart.js 4.5.1 (impact charts, lazy-loaded). Do not add other libraries.
+Third-party scripts come from cdnjs with pinned versions and SRI hashes: GSAP 3.15.0 + ScrollTrigger (animation). Do not add other libraries.
 
 To replay the intro, clear sessionStorage (or open a new tab). To test reduced motion, turn it on in the OS or emulate it in DevTools (Rendering > prefers-reduced-motion).
 
@@ -29,7 +29,6 @@ Everything lives in one file: **`index.html`**
 - **Head script**: adds `html.motion` when the visitor does not prefer reduced motion, and `html.intro-play` on the first visit of a browser session (`sessionStorage.ccbIntroSeen`). CSS uses `.motion` to pre-hide things that animate in, so nothing flashes.
 - **JS** (inline `<script>` at the bottom, after the GSAP scripts). If GSAP failed to load, it removes `.motion` so the page falls back to its static, fully visible state. Functions:
   - `initIntro`: the ribbon intro itself is pure CSS (2.4s); JS skips it on scroll/click/touch/key and removes it.
-  - `initCharts`: Chart.js is injected when `#impact` is ~800px away; each `canvas[data-chart]` is built when 35% visible. Data lives in the `specs` object. No animation for reduced motion.
   - `initMarquee`: wraps the Sponsors tier `[data-marquee]` pills in a seamless looping marquee (clone is `aria-hidden`). Skipped for reduced motion.
   - Motion only (`MOTION`): `initHero`, `initReveals` (headings fade up, cards batch-stagger in), `initTimeline` (rose `.tl-line` scrubs down the track, dots appear), `initParallax` (Dash + Brandon and Gail photos), plus a re-scroll to `location.hash` because the pinned hero adds scroll length after the browser's first jump.
   - Mobile menu, dashboard iframe resize + fallback (checks `e.origin`), PayPal copy-email button.
@@ -79,7 +78,7 @@ Everything lives in one file: **`index.html`**
 - **No em dashes** in site copy. Use commas, colons, or periods.
 - Interactive elements are at least 44px tall on touch (`.btn-small`, mobile menu links, footer links, linked pills via `::after` hit area).
 - Decorative emoji/glyphs get `aria-hidden="true"`. `target="_blank"` links get `rel="noopener"`.
-- Nav collapses to the hamburger at 900px; grids (including `.chart-grid`) collapse to one column at 640px.
+- Nav collapses to the hamburger at 900px; grids collapse to one column at 640px.
 - Mobile first: check layouts at 375px wide and on iPhone Safari. The hero uses `100svh` so the iOS URL bar does not resize it.
 - Sections have `scroll-margin-top: 64px` so anchor jumps clear the sticky header.
 - New animated content must stay visible when `.motion` is absent (reduced motion, no JS, GSAP blocked).
@@ -87,7 +86,7 @@ Everything lives in one file: **`index.html`**
 ## Key content areas to know
 
 - **Sponsor tiers**: Collaborators → Diamond → Platinum → Gold → Silver → Sponsors. Each uses a `.pill` class with a tier modifier (`diamond`, `platinum`, `gold`, `silver`, `sponsor`). Only the final Sponsors tier is a marquee (`data-marquee`); edit its pills in the HTML as usual.
-- **Impact**: four Chart.js charts (data in `initCharts` > `specs`; keep each canvas `aria-label` in sync), then the live survey dashboard iframe below them. Chart colors: `#b5476a`, `#e8a0b4`, `#c9953a`.
+- **Impact**: the live survey dashboard iframe (`?embed=1`, charts only, no heading of its own), under the section's "What the numbers say" heading.
 - **Basket contents**: Chemotherapy Care Basket, Radiation Care Bundle, Mastectomy Recovery Bag, each in `.basket-card`.
 - **Timeline**: `.tl-item` list entries, one per milestone.
 - **Donation**: Venmo `Eugenia-Chu` (link), PayPal `chueugenia@yahoo.com` (copy button; no PayPal link exists). Appears in `#help` and `#donate`.
