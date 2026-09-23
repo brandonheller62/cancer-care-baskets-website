@@ -26,7 +26,15 @@
   // Motion flag, set before first paint so hidden-until-animated content never flashes.
   (function () {
     var root = document.documentElement;
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: no-preference)').matches) root.classList.add('motion');
+    if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: no-preference)').matches)) return;
+    root.classList.add('motion');
+    // Opening ribbon intro: once per browser session.
+    try {
+      if (!sessionStorage.getItem('ccbIntroSeen')) {
+        sessionStorage.setItem('ccbIntroSeen', '1');
+        root.classList.add('intro-play');
+      }
+    } catch (e) {}
   })();
 </script>
 <style>
@@ -56,6 +64,17 @@ a{color:var(--rose);text-decoration:none}
 .skip-link{position:absolute;left:1rem;top:-100px;z-index:200;background:var(--rose);color:#fff;padding:12px 18px;border-radius:0 0 12px 12px;font-family:var(--sans);font-size:14px;font-weight:600}
 .skip-link:focus{top:0}
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Opening intro (CSS only, so it never waits on a script). Total 2.4s. */
+.intro{display:none}
+.intro-play .intro{display:flex;position:fixed;inset:0;z-index:300;flex-direction:column;align-items:center;justify-content:center;gap:20px;background:linear-gradient(160deg,#f2c4d1 0%,#fbeaf0 45%,#fdf9f6 100%);animation:introOut .7s ease-in-out 1.7s forwards}
+.intro-ribbon{width:92px;height:auto;overflow:visible}
+.intro-ribbon path{fill:none;stroke:#b5476a;stroke-width:9;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:ribbonDraw 1.2s cubic-bezier(.45,0,.25,1) .15s forwards}
+.intro-name{font-family:var(--sans);font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);font-weight:600;opacity:0;animation:introFadeIn .6s ease-out .9s forwards}
+.intro-play .intro.skip{animation:introOut .35s ease-out forwards}
+@keyframes ribbonDraw{to{stroke-dashoffset:0}}
+@keyframes introFadeIn{to{opacity:1}}
+@keyframes introOut{to{opacity:0;visibility:hidden}}
 
 /* Header + nav */
 .site-nav{background:#fff;border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;height:64px}
@@ -253,6 +272,11 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
 </style>
 </head>
 <body>
+
+<div class="intro" id="intro" aria-hidden="true">
+  <svg class="intro-ribbon" viewBox="0 0 100 140"><path pathLength="1" d="M30 130 L62 70 C78 42 72 12 50 12 C28 12 22 42 38 70 L70 130"/></svg>
+  <p class="intro-name">Cancer Care Baskets</p>
+</div>
 
 <a href="#main" class="skip-link">Skip to content</a>
 
@@ -610,9 +634,23 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
   const root = document.documentElement;
   if (root.classList.contains('motion') && !(window.gsap && window.ScrollTrigger)) root.classList.remove('motion');
   const MOTION = root.classList.contains('motion');
+  initIntro();
   if (MOTION) {
     gsap.registerPlugin(ScrollTrigger);
     initHero();
+  }
+
+  // Intro: the animation itself is CSS. Here: skip on any input, then remove it.
+  function initIntro() {
+    const intro = document.getElementById('intro');
+    if (!root.classList.contains('intro-play')) { intro.remove(); return; }
+    const skipEvents = ['wheel', 'touchstart', 'keydown', 'pointerdown', 'scroll'];
+    const skip = () => { intro.classList.add('skip'); stopListening(); };
+    const stopListening = () => skipEvents.forEach(ev => window.removeEventListener(ev, skip));
+    const finish = () => { stopListening(); intro.remove(); root.classList.remove('intro-play'); };
+    skipEvents.forEach(ev => window.addEventListener(ev, skip, { passive: true, once: true }));
+    intro.addEventListener('animationend', e => { if (e.target === intro) finish(); });
+    setTimeout(finish, 3000); // safety net
   }
 
   // Hero: 124 webp frames drawn to a canvas, scrubbed by scroll while the hero is pinned.
