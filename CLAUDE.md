@@ -88,7 +88,7 @@ Everything lives in one file: **`index.html`**
 
 - **Sponsor tiers**: Collaborators → Diamond → Platinum → Gold → Silver → Sponsors. Each uses a `.pill` class with a tier modifier (`diamond`, `platinum`, `gold`, `silver`, `sponsor`). Only the final Sponsors tier is a marquee (`data-marquee`); edit its pills in the HTML as usual.
 - **Impact**: the live survey dashboard iframe (`?embed=1`, charts only, no heading of its own), under the section's "What the numbers say" heading.
-- **Basket contents**: Chemotherapy Care Basket, Radiation Care Bundle, Mastectomy Recovery Bag, each in `.basket-card`.
+- **Basket contents**: Chemotherapy Care Backpack, Radiation Care Bundle, Mastectomy Recovery Bag, each in `.basket-card`.
 - **Timeline**: `.tl-item` list entries, one per milestone.
 - **Donation**: Venmo `Eugenia-Chu` (link), PayPal `chueugenia@yahoo.com` (copy button; no PayPal link exists). Appears in `#help` and `#donate`.
 - **Contact**: `cancercarebaskets@gmail.com`.
