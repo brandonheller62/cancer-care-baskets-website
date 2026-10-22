@@ -14,7 +14,7 @@ No build step. Serve the folder with any static file server (opening the file di
 python3 -m http.server 8080   # then visit http://localhost:8080
 ```
 
-Third-party scripts come from cdnjs with pinned versions and SRI hashes: GSAP 3.15.0 + ScrollTrigger (animation). Do not add other libraries.
+Third-party scripts: GSAP 3.15.0 + ScrollTrigger (animation) from cdnjs with pinned versions and SRI hashes, and Lucide 0.460.0 (icons) from unpkg (`lucide.min.js` UMD). Do not add other libraries.
 
 To replay the intro, clear sessionStorage (or open a new tab). To test reduced motion, turn it on in the OS or emulate it in DevTools (Rendering > prefers-reduced-motion).
 
@@ -31,7 +31,7 @@ Everything lives in one file: **`index.html`**
   - `initIntro`: the ribbon intro itself is pure CSS (2.4s); JS skips it on scroll/click/touch/key and removes it.
   - `initMarquee`: wraps the Sponsors tier `[data-marquee]` pills in a seamless looping marquee (clone is `aria-hidden`). Skipped for reduced motion.
   - Motion only (`MOTION`): `initHero`, `initReveals` (headings fade up, cards batch-stagger in), `initTimeline` (rose `.tl-line` scrubs down the track, dots appear), `initParallax` (Dash + Brandon and Gail photos), plus a re-scroll to `location.hash` because the pinned hero adds scroll length after the browser's first jump.
-  - Mobile menu, dashboard iframe resize + fallback (checks `e.origin`), PayPal copy-email button.
+  - Mobile menu, then `lucide.createIcons()` (guarded by `if (window.lucide)` so a CDN failure can't break the rest), dashboard iframe resize + fallback (checks `e.origin`), PayPal copy-email button.
 
 ## Hero scroll scrub
 
@@ -78,7 +78,7 @@ Everything lives in one file: **`index.html`**
 - **No em dashes** in site copy. Use commas, colons, or periods.
 - **Fonts**: two families, one rule. `--serif` (Georgia) for `h1`/`h2`/`h3`, hero stat numbers and quote marks; `--sans` (Helvetica Neue, the `body` default) for all body text, quotes, nav, buttons, labels and pills. Small uppercase labels (section tags, tier labels) are sans even when they are `h3`s.
 - Interactive elements are at least 44px tall on touch (`.btn-small`, mobile menu links, footer links, linked pills via `::after` hit area).
-- Decorative emoji/glyphs get `aria-hidden="true"`. `target="_blank"` links get `rel="noopener"`.
+- **Icons**: no emoji or symbol glyphs on the site. Use Lucide: `<i data-lucide="icon-name" aria-hidden="true"></i>` (swapped for an inline SVG at load). A global `[data-lucide]` rule sizes icons to `1em` and inherits `color`, so size them with the parent's `font-size` (basket icons 28px, help circles 22px, quote marks 48px). Add `fill="currentColor"` for a filled heart. Decorative icons get `aria-hidden="true"`. `target="_blank"` links get `rel="noopener"`.
 - Nav collapses to the hamburger at 900px; grids collapse to one column at 640px.
 - Mobile first: check layouts at 375px wide and on iPhone Safari. The hero uses `100svh` so the iOS URL bar does not resize it.
 - Sections have `scroll-margin-top: 64px` so anchor jumps clear the sticky header.
@@ -90,5 +90,6 @@ Everything lives in one file: **`index.html`**
 - **Impact**: the live survey dashboard iframe (`?embed=1`, charts only, no heading of its own), under the section's "What the numbers say" heading.
 - **Basket contents**: Chemotherapy Care Backpack, Radiation Care Bundle, Mastectomy Recovery Bag, each in `.basket-card`.
 - **Timeline**: `.tl-item` list entries, one per milestone.
+- **Award**: 2026 Miami Beach Caregiver of the Year, given to Brandon & Mom for the whole Cancer Care Baskets project. Shown in three places: the `.hero-award` line under the hero stats, the gold `.award-card` at the top of `#press` (full width, above `.press-grid`), and the 2026 Radiation Care Bundles timeline entry.
 - **Donation**: Venmo `Eugenia-Chu` (link), PayPal `chueugenia@yahoo.com` (copy button; no PayPal link exists). Appears in `#help` and `#donate`.
 - **Contact**: `cancercarebaskets@gmail.com`.

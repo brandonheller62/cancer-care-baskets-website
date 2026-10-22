@@ -61,6 +61,8 @@ body{font-family:var(--sans);color:var(--text);background:#fff}
 h1,h2,h3,.stat-n,.quote-mark{font-family:var(--serif)}
 img,video{max-width:100%;height:auto}
 .sans{font-family:var(--sans)}
+/* Lucide icons: inherit color, size from the parent's font-size */
+[data-lucide]{width:1em;height:1em;stroke-width:1.75;vertical-align:middle;flex-shrink:0}
 a{color:var(--rose);text-decoration:none}
 ::selection{background:var(--rose);color:#fff}
 :focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:4px}
@@ -124,6 +126,7 @@ a{color:var(--rose);text-decoration:none}
 .stat{text-align:center}
 .stat-n{font-size:2rem;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
 .stat-l{font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.88);letter-spacing:.5px;margin-top:2px}
+.hero .hero-award{display:inline-flex;align-items:center;gap:6px;max-width:none;margin:28px 0 0;line-height:1.4;font-family:var(--sans);font-size:13px;color:var(--rose);font-weight:600}
 .scroll-hint{display:none;position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;flex-direction:column;align-items:center;gap:8px;font-family:var(--sans);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.9)}
 .motion .scroll-hint{display:flex}
 .scroll-hint-line{width:1px;height:34px;background:rgba(255,255,255,.3);position:relative;overflow:hidden}
@@ -149,7 +152,7 @@ section{padding:70px 2rem;scroll-margin-top:64px}
 .testimonials{background:var(--rose-light);padding:50px 2rem;text-align:center}
 .testimonials .section-inner{max-width:1000px;display:flex;flex-wrap:wrap;gap:2.5rem;justify-content:center}
 .testimonial{flex:1 1 340px;max-width:460px}
-.quote-mark{font-size:3rem;color:var(--rose);line-height:1;margin-bottom:1rem}
+.quote-mark{font-size:48px;color:var(--rose);line-height:1;margin-bottom:1rem;display:flex;justify-content:center}
 .testimonial blockquote{font-size:1.2rem;color:var(--text);line-height:1.8;font-style:italic;margin-bottom:1.25rem}
 .testimonial figcaption{font-family:var(--sans);font-size:13px;color:var(--rose);font-weight:600;letter-spacing:.5px}
 
@@ -182,7 +185,7 @@ section{padding:70px 2rem;scroll-margin-top:64px}
 .baskets-bg{background:var(--cream)}
 .basket-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:2rem}
 .basket-card{background:#fff;border-radius:16px;border:1px solid var(--border);padding:1.75rem}
-.basket-icon{font-size:28px;margin-bottom:12px}
+.basket-icon{font-size:28px;line-height:1;color:var(--rose);margin-bottom:12px}
 .basket-card h3{font-size:1.1rem;color:var(--text);margin-bottom:8px;font-weight:700}
 .basket-card p{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:14px}
 .basket-card .note{margin-top:1rem;background:var(--rose-light);border-radius:10px;padding:12px 14px}
@@ -193,7 +196,7 @@ section{padding:70px 2rem;scroll-margin-top:64px}
 /* Help */
 .help-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin-top:2rem}
 .help-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center}
-.help-icon{width:48px;height:48px;border-radius:50%;background:var(--rose-light);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:20px}
+.help-icon{width:48px;height:48px;border-radius:50%;background:var(--rose-light);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:22px;color:var(--rose)}
 .help-card h3{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px}
 .help-card p{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:14px}
 .btn-small{display:inline-flex;align-items:center;min-height:44px;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--rose);border:1.5px solid var(--rose);padding:0 18px;border-radius:22px;transition:background .2s,color .2s}
@@ -214,6 +217,11 @@ section{padding:70px 2rem;scroll-margin-top:64px}
 .press-card h3{font-size:1.1rem;color:var(--text);font-weight:700;margin-bottom:10px}
 .press-card p{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px}
 .press-link{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--rose)}
+.award-card{background:var(--gold-light);border:1px solid #e8c97a;border-left:4px solid var(--gold);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem}
+.award-label{display:flex;align-items:center;gap:6px;font-family:var(--sans);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8a6020;font-weight:700;margin-bottom:8px}
+.award-label [data-lucide]{font-size:14px}
+.award-card h3{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:8px}
+.award-card p.award-body{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.6}
 
 /* Survey + impact */
 .survey-bg{background:var(--rose-light)}
@@ -353,6 +361,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
       <div class="stat"><div class="stat-n" data-count="100" data-suffix="+">100+</div><div class="stat-l">Sponsors &amp; supporters</div></div>
       <div class="stat"><div class="stat-n" data-count="50" data-prefix="$" data-suffix="K+">$50K+</div><div class="stat-l">In donations and supplies</div></div>
     </div>
+    <p class="hero-award hero-reveal"><i data-lucide="award" aria-hidden="true"></i>2026 Miami Beach Caregiver of the Year</p>
   </div>
   <div class="scroll-hint" aria-hidden="true"><span>Scroll</span><span class="scroll-hint-line"></span></div>
 </div>
@@ -374,12 +383,12 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
 <section id="testimonial" class="testimonials" aria-label="What patients say">
   <div class="section-inner">
     <figure class="testimonial">
-      <div class="quote-mark" aria-hidden="true">❝</div>
+      <div class="quote-mark" aria-hidden="true"><i data-lucide="quote"></i></div>
       <blockquote>"I felt better knowing that I wasn't facing my treatment alone. Gifts of comfort should make patients feel cared for and not alone."</blockquote>
       <figcaption>Anonymous Patient</figcaption>
     </figure>
     <figure class="testimonial">
-      <div class="quote-mark" aria-hidden="true">❝</div>
+      <div class="quote-mark" aria-hidden="true"><i data-lucide="quote"></i></div>
       <blockquote>"I went to my first chemotherapy appointment today where I was given one of your care baskets by my social worker Gail. This was so unexpected, thoughtful and kind and I want to thank you with all of my heart. Everything felt like a warm hug and a bright light when it was needed most."</blockquote>
       <figcaption>Anonymous Patient</figcaption>
     </figure>
@@ -407,7 +416,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
           <li class="tl-item"><span class="tl-dot" aria-hidden="true"></span><span class="tl-year">2023</span><span class="tl-desc">Switched to backpacks for greater patient utility</span></li>
           <li class="tl-item"><span class="tl-dot" aria-hidden="true"></span><span class="tl-year">2024</span><span class="tl-desc">Note Writing Campaign launched to include personal encouragement in every basket</span></li>
           <li class="tl-item"><span class="tl-dot" aria-hidden="true"></span><span class="tl-year">2025</span><span class="tl-desc">Dash Merch campaign &amp; Bracelets for a Cause fundraiser launch</span></li>
-          <li class="tl-item"><span class="tl-dot" aria-hidden="true"></span><span class="tl-year">2026</span><span class="tl-desc">Radiation Care Bundles added to the program</span></li>
+          <li class="tl-item"><span class="tl-dot" aria-hidden="true"></span><span class="tl-year">2026</span><span class="tl-desc">Radiation Care Bundles added to the program; Brandon &amp; Mom named Miami Beach Caregiver of the Year</span></li>
           <li class="tl-item"><span class="tl-dot" aria-hidden="true"></span><span class="tl-year">2026</span><span class="tl-desc">Mastectomy Recovery Bags added to the program</span></li>
         </ul>
         </div>
@@ -423,7 +432,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
             <figcaption>2026</figcaption>
           </figure>
         </div>
-        <p class="then-now-note">Eight years later. Same mission, same partnership <span aria-hidden="true">💗</span></p>
+        <p class="then-now-note">Eight years later. Same mission, same partnership <i data-lucide="heart" fill="currentColor" aria-hidden="true" style="color:var(--rose)"></i></p>
         <figure class="story-card">
           <blockquote>"Our mission is to bring comfort and emotional support to breast cancer patients, reminding them they are seen, supported, and never alone during their healing journey."</blockquote>
           <figcaption>Brandon &amp; Mom</figcaption>
@@ -444,7 +453,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
     <p class="section-sub">Each basket (often a backpack for added utility) is thoughtfully curated with products that ease the side effects of treatment and bring a little joy to a difficult day.</p>
     <div class="basket-grid">
       <div class="basket-card">
-        <div class="basket-icon" aria-hidden="true">🎒</div>
+        <div class="basket-icon" aria-hidden="true"><i data-lucide="backpack"></i></div>
         <h3>Chemotherapy Care Backpack</h3>
         <p>A full backpack packed with comfort essentials for patients going through chemo treatment.</p>
         <ul class="item-list">
@@ -455,7 +464,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
         </div>
       </div>
       <div class="basket-card">
-        <div class="basket-icon" aria-hidden="true">🌿</div>
+        <div class="basket-icon" aria-hidden="true"><i data-lucide="leaf"></i></div>
         <h3>Radiation Care Bundle</h3>
         <p>A targeted collection of products specifically proven to protect and soothe skin during radiation therapy, a new addition launched in 2026.</p>
         <ul class="item-list">
@@ -466,7 +475,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
         </div>
       </div>
       <div class="basket-card">
-        <div class="basket-icon" aria-hidden="true">🎗️</div>
+        <div class="basket-icon" aria-hidden="true"><i data-lucide="ribbon"></i></div>
         <h3>Mastectomy Recovery Bag</h3>
         <p>A kit built for the physical recovery and emotional adjustment after a mastectomy.</p>
         <ul class="item-list">
@@ -487,37 +496,37 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
     <div class="divider"></div>
     <div class="help-grid">
       <div class="help-card">
-        <div class="help-icon" aria-hidden="true">💳</div>
+        <div class="help-icon" aria-hidden="true"><i data-lucide="hand-heart"></i></div>
         <h3>Donate</h3>
         <p>Any amount helps us build more baskets. Donate via Venmo or PayPal. 100% goes directly to patients.</p>
         <a href="#donate" class="btn-small">Donate Now</a>
       </div>
       <div class="help-card">
-        <div class="help-icon" aria-hidden="true">💗</div>
+        <div class="help-icon" aria-hidden="true"><i data-lucide="gem"></i></div>
         <h3>Bracelets for a Cause</h3>
         <p>Purchase a beautiful pink bracelet for just $5! Every dollar goes directly toward creating Cancer Care Baskets. Venmo: Eugenia-Chu or PayPal: chueugenia@yahoo.com. Send your mailing address after donating and we'll ship it out (U.S. only).</p>
         <a href="https://venmo.com/Eugenia-Chu" class="btn-small">Get a Bracelet</a>
       </div>
       <div class="help-card">
-        <div class="help-icon" aria-hidden="true">✉️</div>
+        <div class="help-icon" aria-hidden="true"><i data-lucide="mail"></i></div>
         <h3>Write a Note</h3>
         <p>Send an encouraging message to a patient. We include handwritten notes in every basket.</p>
         <a href="mailto:cancercarebaskets@gmail.com" class="btn-small">Send a Note</a>
       </div>
       <div class="help-card">
-        <div class="help-icon" aria-hidden="true">📦</div>
+        <div class="help-icon" aria-hidden="true"><i data-lucide="package"></i></div>
         <h3>Donate Items</h3>
         <p>Collaborate by donating items for the baskets.</p>
         <a href="mailto:cancercarebaskets@gmail.com" class="btn-small">Get in Touch</a>
       </div>
       <div class="help-card">
-        <div class="help-icon" aria-hidden="true">📸</div>
+        <div class="help-icon" aria-hidden="true"><i data-lucide="camera"></i></div>
         <h3>Spread the Word</h3>
         <p>Follow and share our project on Instagram and Facebook to help us reach more supporters and patients.</p>
         <a href="https://www.instagram.com/cancercarebaskets/" class="btn-small">@cancercarebaskets</a>
       </div>
       <div class="help-card">
-        <div class="help-icon" aria-hidden="true">🤝</div>
+        <div class="help-icon" aria-hidden="true"><i data-lucide="handshake"></i></div>
         <h3>Start Locally</h3>
         <p>Inspired? We'd love to help you start a similar program in your area.</p>
         <a href="mailto:cancercarebaskets@gmail.com" class="btn-small">Contact Us</a>
@@ -528,10 +537,15 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
 
 <section id="press" class="press-bg">
   <div class="section-inner">
-    <p class="section-tag">Press &amp; Interviews</p>
-    <h2 class="section-title">As seen in</h2>
+    <p class="section-tag">Press &amp; Recognition</p>
+    <h2 class="section-title">Recognition &amp; press</h2>
     <div class="divider"></div>
     <p class="section-sub" style="margin-bottom:2rem">I have been featured in interviews sharing the story behind Cancer Care Baskets and the mission to support breast cancer patients.</p>
+    <div class="award-card">
+      <p class="award-label"><i data-lucide="award" aria-hidden="true"></i>Award · 2026</p>
+      <h3>Miami Beach Caregiver of the Year</h3>
+      <p class="award-body">Awarded to Brandon &amp; Mom for Cancer Care Baskets, honoring eight years of bringing comfort and support to breast cancer patients at Mount Sinai.</p>
+    </div>
     <div class="press-grid">
       <a href="https://canvasrebel.com/meet-brandon-heller/" target="_blank" rel="noopener" class="press-card">
         <p class="press-outlet">CanvasRebel Magazine</p>
@@ -654,6 +668,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" integrity="sha384-XmJ9SoHtVOHoQUcKvFAzVXwdkKo1Ie3bhmSoIAkcdsHGaIrVJIkmozyq0FJeb/Ly" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" integrity="sha384-wl5TeDVvOWt30Pbf8aSo2ZrzsOjddu3avOBvHe+p+OhJt9gP6w9YXmDkN5DK2/dF" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 <script>
   // Motion: only when the visitor allows it and GSAP actually loaded. Otherwise every
   // animated element stays in its plain, fully visible CSS state.
@@ -891,6 +906,10 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && mobileMenu.classList.contains('open')) { setMenu(false); hamburger.focus(); }
   });
+
+  // Icons: swap <i data-lucide> placeholders for inline SVGs. Guarded so a CDN failure
+  // can't stop the rest of this script.
+  if (window.lucide) lucide.createIcons();
 
   // Dashboard iframe: resize to its content, fall back to a link if it never reports in.
   const DASHBOARD_ORIGIN = 'https://ccb-survey-dashboard.vercel.app';
