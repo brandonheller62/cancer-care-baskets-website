@@ -49,6 +49,7 @@ html{scroll-behavior:smooth}
   --gold-dark:#8a6020;
   --gold-light:#fdf6ec;
   --gold-border:#efd9ae;
+  --gold-mid:#e8c97a;
   --cream:#fdf9f6;
   --text:#2c1a1a;
   --muted:#7a5c5c;
@@ -61,12 +62,14 @@ body{font-family:var(--sans);color:var(--text);background:#fff}
 h1,h2,h3,.stat-n,.quote-mark{font-family:var(--serif)}
 img,video{max-width:100%;height:auto}
 .sans{font-family:var(--sans)}
-/* Lucide icons: inherit color, size from the parent's font-size */
-[data-lucide]{width:1em;height:1em;stroke-width:1.75;vertical-align:middle;flex-shrink:0}
+/* Icons (inline Lucide sprite): inherit color, size from the parent's font-size */
+.icon-sprite{display:none}
+.icon{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle;flex-shrink:0}
+.icon-filled{fill:currentColor}
 a{color:var(--rose);text-decoration:none}
 ::selection{background:var(--rose);color:#fff}
 :focus-visible{outline:2px solid var(--rose);outline-offset:3px;border-radius:4px}
-.donate-band :focus-visible{outline-color:#fff}
+.donate-band :focus-visible,.hero :focus-visible{outline-color:#fff}
 .skip-link{position:absolute;left:1rem;top:-100px;z-index:200;background:var(--rose);color:#fff;padding:12px 18px;border-radius:0 0 12px 12px;font-family:var(--sans);font-size:14px;font-weight:600}
 .skip-link:focus{top:0}
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -75,7 +78,7 @@ a{color:var(--rose);text-decoration:none}
 .intro{display:none}
 .intro-play .intro{display:flex;position:fixed;inset:0;z-index:300;flex-direction:column;align-items:center;justify-content:center;gap:20px;background:linear-gradient(160deg,#f2c4d1 0%,#fbeaf0 45%,#fdf9f6 100%);animation:introOut .7s ease-in-out 1.7s forwards}
 .intro-ribbon{width:92px;height:auto;overflow:visible}
-.intro-ribbon path{fill:none;stroke:#b5476a;stroke-width:9;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:ribbonDraw 1.2s cubic-bezier(.45,0,.25,1) .15s forwards}
+.intro-ribbon path{fill:none;stroke:var(--rose);stroke-width:9;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:ribbonDraw 1.2s cubic-bezier(.45,0,.25,1) .15s forwards}
 .intro-name{font-family:var(--sans);font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--rose);font-weight:600;opacity:0;animation:introFadeIn .6s ease-out .9s forwards}
 .intro-play .intro.skip{animation:introOut .35s ease-out forwards}
 @keyframes ribbonDraw{to{stroke-dashoffset:0}}
@@ -126,7 +129,8 @@ a{color:var(--rose);text-decoration:none}
 .stat{text-align:center}
 .stat-n{font-size:2rem;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
 .stat-l{font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.88);letter-spacing:.5px;margin-top:2px}
-.hero .hero-award{display:inline-flex;align-items:center;gap:6px;max-width:none;margin:28px 0 0;line-height:1.4;font-family:var(--sans);font-size:13px;color:var(--rose);font-weight:600}
+.hero .hero-award{display:inline-flex;align-items:center;gap:6px;max-width:none;margin:28px 0 0;line-height:1.4;font-family:var(--sans);font-size:13px;color:#fde7ee;font-weight:600;letter-spacing:.3px;text-shadow:0 1px 12px rgba(60,15,30,.45)}
+.hero .hero-award .icon{font-size:16px}
 .scroll-hint{display:none;position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;flex-direction:column;align-items:center;gap:8px;font-family:var(--sans);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.9)}
 .motion .scroll-hint{display:flex}
 .scroll-hint-line{width:1px;height:34px;background:rgba(255,255,255,.3);position:relative;overflow:hidden}
@@ -139,6 +143,7 @@ section{padding:70px 2rem;scroll-margin-top:64px}
 .section-tag{font-family:var(--sans);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:10px}
 .section-title{font-size:clamp(1.5rem,3vw,2.1rem);color:var(--text);margin-bottom:20px;font-weight:700}
 .section-sub{font-size:1rem;color:var(--muted);line-height:1.8;max-width:600px}
+.section-sub.lead-in{margin-bottom:2rem}
 .divider{width:40px;height:3px;background:var(--gold);border-radius:2px;margin:16px 0 28px}
 
 /* Watch our story */
@@ -166,6 +171,7 @@ section{padding:70px 2rem;scroll-margin-top:64px}
 .then-now img{width:100%;border-radius:14px;display:block;object-fit:cover;aspect-ratio:3/4}
 .then-now figcaption{font-family:var(--sans);font-size:11px;color:var(--muted);text-align:center;margin-top:6px;letter-spacing:1px;text-transform:uppercase;font-weight:600}
 .then-now-note{font-family:var(--sans);font-size:12px;color:var(--muted);text-align:center;font-style:italic;margin-bottom:1.5rem}
+.then-now-note .icon{color:var(--rose)}
 .story-card{background:var(--rose-light);border-radius:16px;padding:2rem;border:1px solid var(--border)}
 .story-card blockquote{font-size:1.05rem;color:var(--text);line-height:1.8;font-style:italic}
 .story-card figcaption{display:block;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--rose);font-weight:600}
@@ -217,9 +223,9 @@ section{padding:70px 2rem;scroll-margin-top:64px}
 .press-card h3{font-size:1.1rem;color:var(--text);font-weight:700;margin-bottom:10px}
 .press-card p{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px}
 .press-link{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--rose)}
-.award-card{background:var(--gold-light);border:1px solid #e8c97a;border-left:4px solid var(--gold);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem}
-.award-label{display:flex;align-items:center;gap:6px;font-family:var(--sans);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8a6020;font-weight:700;margin-bottom:8px}
-.award-label [data-lucide]{font-size:14px}
+.award-card{display:flex;gap:1.25rem;align-items:flex-start;background:var(--gold-light);border:1px solid var(--gold-mid);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem}
+.award-badge{flex-shrink:0;width:52px;height:52px;border-radius:50%;background:#fff;border:1px solid var(--gold-mid);display:flex;align-items:center;justify-content:center;font-size:26px;color:var(--gold-dark)}
+.award-label{font-family:var(--sans);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dark);font-weight:700;margin-bottom:8px}
 .award-card h3{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:8px}
 .award-card p.award-body{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.6}
 
@@ -229,11 +235,17 @@ section{padding:70px 2rem;scroll-margin-top:64px}
 .survey-card p{font-size:1rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem}
 .dashboard-wrap iframe{width:100%;border:0;display:block;min-height:1100px;background:transparent}
 .dashboard-wrap.failed iframe{display:none}
-.dashboard-wrap{margin-top:2rem}
+.dashboard-wrap{margin-top:2rem;position:relative}
+/* Shown over the reserved iframe space until the dashboard reports its height (or fails) */
+.dashboard-loading{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:10px;padding:2rem;background:var(--cream);border:1px solid var(--border);border-radius:16px;font-family:var(--sans);font-size:14px;color:var(--muted)}
+.dashboard-loading-dot{width:8px;height:8px;border-radius:50%;background:var(--rose-mid)}
+.motion .dashboard-loading-dot{animation:dashPulse 1.6s ease-in-out infinite}
+@keyframes dashPulse{50%{opacity:.35}}
+.dashboard-wrap.ready .dashboard-loading,.dashboard-wrap.failed .dashboard-loading{display:none}
 .dashboard-fallback{display:none;background:var(--cream);border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:center;font-family:var(--sans);font-size:14px;color:var(--muted);line-height:1.7}
 .dashboard-wrap.failed .dashboard-fallback{display:block}
 .dashboard-caption{font-family:var(--sans);font-size:12px;color:var(--muted);text-align:center;margin-top:10px}
-.dashboard-caption a,.dashboard-fallback a{font-weight:600}
+.dashboard-caption a,.dashboard-fallback a{font-weight:600;display:inline-flex;align-items:center;gap:4px;min-height:44px}
 
 /* Donate */
 .donate-band{background:var(--rose);padding:60px 2rem;text-align:center}
@@ -257,12 +269,15 @@ a.pill::after{content:'';position:absolute;inset:-8px 0}
 a.pill:hover{border-color:var(--rose-mid)}
 .pill.diamond{background:#f0e8ff;color:#5c3d9e;border:1px solid #c9b8ef}
 .pill.platinum{background:#fff;color:var(--text);border:1px solid var(--border)}
-.pill.gold{background:var(--gold-light);color:var(--gold-dark);border:1px solid #e8c97a}
+.pill.gold{background:var(--gold-light);color:var(--gold-dark);border:1px solid var(--gold-mid)}
 .pill.silver{background:#f5f5f5;color:#555;border:1px solid #ddd}
 .pill.sponsor{background:#fff;color:var(--muted);border:1px solid var(--border);font-size:12px}
 .marquee{overflow:hidden;padding:10px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
 .marquee-track{display:flex;width:max-content;animation:marquee var(--marquee-duration,140s) linear infinite}
-.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee:hover .marquee-track,.marquee:focus-within .marquee-track,.marquee.paused .marquee-track{animation-play-state:paused}
+.marquee-toggle{display:inline-flex;align-items:center;gap:6px;min-height:44px;margin-top:4px;padding:0 14px 0 10px;background:none;border:1px solid transparent;border-radius:22px;font-family:var(--sans);font-size:12px;font-weight:600;color:var(--gold-dark);cursor:pointer;transition:background .2s,border-color .2s}
+.marquee-toggle:hover{background:#fff;border-color:var(--gold-border)}
+.marquee-toggle .icon{font-size:14px}
 .marquee .sponsor-pills{flex-wrap:nowrap;padding-right:8px}
 .marquee .pill{flex-shrink:0;white-space:nowrap}
 @keyframes marquee{to{transform:translateX(-50%)}}
@@ -303,6 +318,24 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
 </style>
 </head>
 <body>
+<!-- Icons: Lucide 0.460.0 paths, inlined as a sprite. Use <svg class="icon" aria-hidden="true"><use href="#i-name"/></svg>. -->
+<svg class="icon-sprite" aria-hidden="true">
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></symbol>
+  <symbol id="i-backpack" viewBox="0 0 24 24"><path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M8 10h8"/><path d="M8 18h8"/><path d="M8 22v-6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v6"/><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+  <symbol id="i-gem" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></symbol>
+  <symbol id="i-hand-heart" viewBox="0 0 24 24"><path d="M11 14h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16"/><path d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 15 6 6"/><path d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z"/></symbol>
+  <symbol id="i-handshake" viewBox="0 0 24 24"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-package" viewBox="0 0 24 24"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"/><path d="m7.5 4.27 9 5.15"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></symbol>
+  <symbol id="i-quote" viewBox="0 0 24 24"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></symbol>
+  <symbol id="i-ribbon" viewBox="0 0 24 24"><path d="M12 11.22C11 9.997 10 9 10 8a2 2 0 0 1 4 0c0 1-.998 2.002-2.01 3.22"/><path d="m12 18 2.57-3.5"/><path d="M6.243 9.016a7 7 0 0 1 11.507-.009"/><path d="M9.35 14.53 12 11.22"/><path d="M9.35 14.53C7.728 12.246 6 10.221 6 7a6 5 0 0 1 12 0c-.005 3.22-1.778 5.235-3.43 7.5l3.557 4.527a1 1 0 0 1-.203 1.43l-1.894 1.36a1 1 0 0 1-1.384-.215L12 18l-2.679 3.593a1 1 0 0 1-1.39.213l-1.865-1.353a1 1 0 0 1-.203-1.422z"/></symbol>
+</svg>
 
 <div class="intro" id="intro" aria-hidden="true">
   <svg class="intro-ribbon" viewBox="0 0 100 140"><path pathLength="1" d="M30 130 L62 70 C78 42 72 12 50 12 C28 12 22 42 38 70 L70 130"/></svg>
@@ -361,7 +394,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
       <div class="stat"><div class="stat-n" data-count="100" data-suffix="+">100+</div><div class="stat-l">Sponsors &amp; supporters</div></div>
       <div class="stat"><div class="stat-n" data-count="50" data-prefix="$" data-suffix="K+">$50K+</div><div class="stat-l">In donations and supplies</div></div>
     </div>
-    <p class="hero-award hero-reveal"><i data-lucide="award" aria-hidden="true"></i>2026 Miami Beach Caregiver of the Year</p>
+    <p class="hero-award hero-reveal"><svg class="icon" aria-hidden="true"><use href="#i-award"/></svg>2026 Miami Beach Caregiver of the Year</p>
   </div>
   <div class="scroll-hint" aria-hidden="true"><span>Scroll</span><span class="scroll-hint-line"></span></div>
 </div>
@@ -383,12 +416,12 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
 <section id="testimonial" class="testimonials" aria-label="What patients say">
   <div class="section-inner">
     <figure class="testimonial">
-      <div class="quote-mark" aria-hidden="true"><i data-lucide="quote"></i></div>
+      <div class="quote-mark" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-quote"/></svg></div>
       <blockquote>"I felt better knowing that I wasn't facing my treatment alone. Gifts of comfort should make patients feel cared for and not alone."</blockquote>
       <figcaption>Anonymous Patient</figcaption>
     </figure>
     <figure class="testimonial">
-      <div class="quote-mark" aria-hidden="true"><i data-lucide="quote"></i></div>
+      <div class="quote-mark" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-quote"/></svg></div>
       <blockquote>"I went to my first chemotherapy appointment today where I was given one of your care baskets by my social worker Gail. This was so unexpected, thoughtful and kind and I want to thank you with all of my heart. Everything felt like a warm hug and a bright light when it was needed most."</blockquote>
       <figcaption>Anonymous Patient</figcaption>
     </figure>
@@ -432,7 +465,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
             <figcaption>2026</figcaption>
           </figure>
         </div>
-        <p class="then-now-note">Eight years later. Same mission, same partnership <i data-lucide="heart" fill="currentColor" aria-hidden="true" style="color:var(--rose)"></i></p>
+        <p class="then-now-note">Eight years later. Same mission, same partnership <svg class="icon icon-filled" aria-hidden="true"><use href="#i-heart"/></svg></p>
         <figure class="story-card">
           <blockquote>"Our mission is to bring comfort and emotional support to breast cancer patients, reminding them they are seen, supported, and never alone during their healing journey."</blockquote>
           <figcaption>Brandon &amp; Mom</figcaption>
@@ -453,7 +486,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
     <p class="section-sub">Each basket is thoughtfully curated with products that ease the side effects of treatment and bring a little joy to a difficult day.</p>
     <div class="basket-grid">
       <div class="basket-card">
-        <div class="basket-icon" aria-hidden="true"><i data-lucide="backpack"></i></div>
+        <div class="basket-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-backpack"/></svg></div>
         <h3>Chemotherapy Care Backpack</h3>
         <p>A full backpack packed with comfort essentials for patients going through chemo treatment.</p>
         <ul class="item-list">
@@ -464,7 +497,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
         </div>
       </div>
       <div class="basket-card">
-        <div class="basket-icon" aria-hidden="true"><i data-lucide="leaf"></i></div>
+        <div class="basket-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg></div>
         <h3>Radiation Care Bundle</h3>
         <p>A targeted collection of products specifically proven to protect and soothe skin during radiation therapy, a new addition launched in 2026.</p>
         <ul class="item-list">
@@ -475,7 +508,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
         </div>
       </div>
       <div class="basket-card">
-        <div class="basket-icon" aria-hidden="true"><i data-lucide="ribbon"></i></div>
+        <div class="basket-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-ribbon"/></svg></div>
         <h3>Mastectomy Recovery Bag</h3>
         <p>A kit built for the physical recovery and emotional adjustment after a mastectomy.</p>
         <ul class="item-list">
@@ -496,37 +529,37 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
     <div class="divider"></div>
     <div class="help-grid">
       <div class="help-card">
-        <div class="help-icon" aria-hidden="true"><i data-lucide="hand-heart"></i></div>
+        <div class="help-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-hand-heart"/></svg></div>
         <h3>Donate</h3>
         <p>Any amount helps us build more baskets. Donate via Venmo or PayPal. 100% goes directly to patients.</p>
         <a href="#donate" class="btn-small">Donate Now</a>
       </div>
       <div class="help-card">
-        <div class="help-icon" aria-hidden="true"><i data-lucide="gem"></i></div>
+        <div class="help-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-gem"/></svg></div>
         <h3>Bracelets for a Cause</h3>
         <p>Purchase a beautiful pink bracelet for just $5! Every dollar goes directly toward creating Cancer Care Baskets. Venmo: Eugenia-Chu or PayPal: chueugenia@yahoo.com. Send your mailing address after donating and we'll ship it out (U.S. only).</p>
         <a href="https://venmo.com/Eugenia-Chu" class="btn-small">Get a Bracelet</a>
       </div>
       <div class="help-card">
-        <div class="help-icon" aria-hidden="true"><i data-lucide="mail"></i></div>
+        <div class="help-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></div>
         <h3>Write a Note</h3>
         <p>Send an encouraging message to a patient. We include handwritten notes in every basket.</p>
         <a href="mailto:cancercarebaskets@gmail.com" class="btn-small">Send a Note</a>
       </div>
       <div class="help-card">
-        <div class="help-icon" aria-hidden="true"><i data-lucide="package"></i></div>
+        <div class="help-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-package"/></svg></div>
         <h3>Donate Items</h3>
         <p>Collaborate by donating items for the baskets.</p>
         <a href="mailto:cancercarebaskets@gmail.com" class="btn-small">Get in Touch</a>
       </div>
       <div class="help-card">
-        <div class="help-icon" aria-hidden="true"><i data-lucide="camera"></i></div>
+        <div class="help-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg></div>
         <h3>Spread the Word</h3>
         <p>Follow and share our project on Instagram and Facebook to help us reach more supporters and patients.</p>
         <a href="https://www.instagram.com/cancercarebaskets/" class="btn-small">@cancercarebaskets</a>
       </div>
       <div class="help-card">
-        <div class="help-icon" aria-hidden="true"><i data-lucide="handshake"></i></div>
+        <div class="help-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-handshake"/></svg></div>
         <h3>Start Locally</h3>
         <p>Inspired? We'd love to help you start a similar program in your area.</p>
         <a href="mailto:cancercarebaskets@gmail.com" class="btn-small">Contact Us</a>
@@ -540,30 +573,33 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
     <p class="section-tag">Press &amp; Recognition</p>
     <h2 class="section-title">Recognition &amp; press</h2>
     <div class="divider"></div>
-    <p class="section-sub" style="margin-bottom:2rem">I have been featured in interviews sharing the story behind Cancer Care Baskets and the mission to support breast cancer patients.</p>
+    <p class="section-sub lead-in">I have been featured in interviews sharing the story behind Cancer Care Baskets and the mission to support breast cancer patients.</p>
     <div class="award-card">
-      <p class="award-label"><i data-lucide="award" aria-hidden="true"></i>Award · 2026</p>
+      <div class="award-badge" aria-hidden="true"><svg class="icon"><use href="#i-award"/></svg></div>
+      <div>
+      <p class="award-label">Award · 2026</p>
       <h3>Miami Beach Caregiver of the Year</h3>
       <p class="award-body">Awarded to Brandon &amp; Mom for Cancer Care Baskets, honoring eight years of bringing comfort and support to breast cancer patients at Mount Sinai.</p>
+      </div>
     </div>
     <div class="press-grid">
       <a href="https://canvasrebel.com/meet-brandon-heller/" target="_blank" rel="noopener" class="press-card">
         <p class="press-outlet">CanvasRebel Magazine</p>
         <h3>Meet Brandon Heller</h3>
         <p>Brandon shares the heartfelt story behind Cancer Care Baskets, from his great-grandmother's passing to building a data-driven initiative that supports breast cancer patients at Mount Sinai.</p>
-        <span class="press-link">Read the interview →<span class="visually-hidden"> (opens in a new tab)</span></span>
+        <span class="press-link">Read the interview <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg><span class="visually-hidden"> (opens in a new tab)</span></span>
       </a>
       <a href="https://yychaniauthor.substack.com/p/an-interview-with-brandon-ccb" target="_blank" rel="noopener" class="press-card">
         <p class="press-outlet">YY Chani Author · Substack</p>
         <h3>An Interview with Brandon: CCB</h3>
         <p>A closer look at Brandon's journey with Cancer Care Baskets: the motivation, the mission, and what it means to make a difference in the lives of patients going through treatment.</p>
-        <span class="press-link">Read the interview →<span class="visually-hidden"> (opens in a new tab)</span></span>
+        <span class="press-link">Read the interview <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg><span class="visually-hidden"> (opens in a new tab)</span></span>
       </a>
       <a href="https://boldjourney.com/meet-brandon-heller" target="_blank" rel="noopener" class="press-card">
         <p class="press-outlet">Bold Journey Magazine</p>
         <h3>Meet Brandon Heller</h3>
         <p>Brandon opens up about the resilience behind Cancer Care Baskets: how a project started in elementary school grew into a lasting partnership with Mount Sinai, and why bringing comfort to patients keeps him going.</p>
-        <span class="press-link">Read the interview →<span class="visually-hidden"> (opens in a new tab)</span></span>
+        <span class="press-link">Read the interview <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg><span class="visually-hidden"> (opens in a new tab)</span></span>
       </a>
     </div>
   </div>
@@ -576,7 +612,7 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
     <div class="divider"></div>
     <div class="survey-card">
       <p class="sans">Have you or a loved one gone through breast cancer treatments? If so, please help us improve our baskets by sharing which products helped you the most by filling out our short anonymous survey.</p>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeHmkUeifXiqKa6OU3nY-Eocer2qT1SgX4-0zGLe8vQHoU1mQ/viewform?usp=header" target="_blank" rel="noopener" class="btn-primary">Take the Survey →<span class="visually-hidden"> (opens in a new tab)</span></a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeHmkUeifXiqKa6OU3nY-Eocer2qT1SgX4-0zGLe8vQHoU1mQ/viewform?usp=header" target="_blank" rel="noopener" class="btn-primary">Take the Survey <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg><span class="visually-hidden"> (opens in a new tab)</span></a>
     </div>
   </div>
 </section>
@@ -593,13 +629,14 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
         src="https://ccb-survey-dashboard.vercel.app/?embed=1"
         title="Cancer Care Baskets live survey results"
         loading="lazy"></iframe>
+      <div class="dashboard-loading" aria-hidden="true"><span class="dashboard-loading-dot"></span>Loading live survey results</div>
       <div class="dashboard-fallback">
         The live survey results can't load right now.
-        <a href="https://ccb-survey-dashboard.vercel.app" target="_blank" rel="noopener">Open the dashboard in a new tab →</a>
+        <a href="https://ccb-survey-dashboard.vercel.app" target="_blank" rel="noopener">Open the dashboard in a new tab <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
       </div>
       <p class="dashboard-caption">
         Live results, updated automatically as new survey responses come in ·
-        <a href="https://ccb-survey-dashboard.vercel.app" target="_blank" rel="noopener">Open full dashboard →<span class="visually-hidden"> (opens in a new tab)</span></a>
+        <a href="https://ccb-survey-dashboard.vercel.app" target="_blank" rel="noopener">Open full dashboard <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg><span class="visually-hidden"> (opens in a new tab)</span></a>
       </p>
     </div>
   </div>
@@ -618,11 +655,11 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
     <p class="section-tag">With Gratitude</p>
     <h2 class="section-title">Our incredible sponsors</h2>
     <div class="divider"></div>
-    <p class="section-sub" style="margin-bottom:2rem">Thank you to every person who has opened their heart and wallet to bring a smile to a stranger's face. The patients receiving these baskets are always moved by your generosity.</p>
+    <p class="section-sub lead-in">Thank you to every person who has opened their heart and wallet to bring a smile to a stranger's face. The patients receiving these baskets are always moved by your generosity.</p>
     <div class="sponsor-tier">
       <h3 class="tier-label">Collaborators</h3>
       <div class="sponsor-pills">
-        <span class="pill sponsor">Carol Nguyen</span><span class="pill sponsor">Charissa Bates</span><span class="pill sponsor">Marquita Goodluck</span><span class="pill sponsor">Darlene of Grace Design Co</span><span class="pill sponsor">Payal Bawa Kapoor</span><span class="pill sponsor">Jennifer Tse &amp; WIN</span><span class="pill sponsor">Grace Laundromat</span><span class="pill sponsor">Shero USA</span><span class="pill sponsor">Chris Kale Corcoran</span><a href="https://shopstage.co" class="pill sponsor">shopstage.co</a><a href="https://carekaps.com" class="pill sponsor">carekaps.com</a><span class="pill sponsor">Dr. Plitt</span><span class="pill sponsor">Dr. Loraine Alderman, Psy.D</span><span class="pill sponsor">305pinkpack.com</span><span class="pill sponsor">All Things Breast Cancer</span><span class="pill sponsor">Hearts Woven</span><span class="pill sponsor">Her Care Miami</span><span class="pill sponsor">Erin Pallard LCSW</span><span class="pill sponsor">Winners Circle</span><span class="pill sponsor">BeeCure</span><span class="pill sponsor">deRoode Orthodontics</span><span class="pill sponsor">Tiana Schenk</span><span class="pill sponsor">Samantha Banta</span><span class="pill sponsor">Ransom Everglades Middle School Varsity &amp; JV Volleyball Teams</span><span class="pill sponsor">Hillsdale High School Varsity Volleyball Team</span><span class="pill sponsor">USBD.com</span>
+        <span class="pill sponsor">Carol Nguyen</span><span class="pill sponsor">Charissa Bates</span><span class="pill sponsor">Marquita Goodluck</span><span class="pill sponsor">Darlene of Grace Design Co</span><span class="pill sponsor">Payal Bawa Kapoor</span><span class="pill sponsor">Jennifer Tse &amp; WIN</span><span class="pill sponsor">Grace Laundromat</span><span class="pill sponsor">Shero USA</span><span class="pill sponsor">Chris Kale Corcoran</span><a href="https://shopstage.co" class="pill sponsor">shopstage.co</a><a href="https://carekaps.com" class="pill sponsor">carekaps.com</a><span class="pill sponsor">Dr. Plitt</span><span class="pill sponsor">Dr. Loraine Alderman, Psy.D</span><span class="pill sponsor">305pinkpack.com</span><span class="pill sponsor">All Things Breast Cancer</span><span class="pill sponsor">Hearts Woven</span><span class="pill sponsor">Her Care Miami</span><span class="pill sponsor">Erin Pallard LCSW</span><span class="pill sponsor">Winners Circle</span><span class="pill sponsor">BeeCure</span><span class="pill sponsor">deRoode Orthodontics</span><span class="pill sponsor">Tiana Schenk</span><span class="pill sponsor">Samantha Banta</span><span class="pill sponsor">Ransom Everglades Middle School Varsity &amp; JV Volleyball Teams</span><span class="pill sponsor">Hillsdale High School Varsity Volleyball Team</span><span class="pill sponsor">USBD.com</span><span class="pill sponsor">Wonder Sewn</span>
       </div>
     </div>
     <div class="sponsor-tier">
@@ -668,7 +705,6 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" integrity="sha384-XmJ9SoHtVOHoQUcKvFAzVXwdkKo1Ie3bhmSoIAkcdsHGaIrVJIkmozyq0FJeb/Ly" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" integrity="sha384-wl5TeDVvOWt30Pbf8aSo2ZrzsOjddu3avOBvHe+p+OhJt9gP6w9YXmDkN5DK2/dF" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 <script>
   // Motion: only when the visitor allows it and GSAP actually loaded. Otherwise every
   // animated element stays in its plain, fully visible CSS state.
@@ -710,6 +746,20 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
     track.append(pills, copy);
     // Constant, calm speed (about 30px per second) whatever the list length.
     track.style.setProperty('--marquee-duration', Math.round(pills.offsetWidth / 30) + 's');
+    // Hover and focus pause it too, but touch and keyboard users need a real control (WCAG 2.2.2).
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'marquee-toggle';
+    toggle.setAttribute('aria-pressed', 'false');
+    const icon = name => '<svg class="icon" aria-hidden="true"><use href="#i-' + name + '"/></svg>';
+    const setPaused = paused => {
+      marquee.classList.toggle('paused', paused);
+      toggle.setAttribute('aria-pressed', String(paused));
+      toggle.innerHTML = paused ? icon('play') + 'Resume scrolling' : icon('pause') + 'Pause scrolling';
+    };
+    toggle.addEventListener('click', () => setPaused(!marquee.classList.contains('paused')));
+    setPaused(false);
+    marquee.after(toggle);
   }
 
   // Intro: the animation itself is CSS. Here: skip on any input, then remove it.
@@ -793,9 +843,13 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
 
     // Frame 1 first, then the rest in the background: last frame, then coarse to fine
     // (every 16th, 8th, 4th...) so the scrub has coverage early. Four requests at a time.
+    // Phones and Save-Data visitors stop at every 2nd frame (about half the download);
+    // nearest() fills the gaps, which is invisible on a small screen.
+    const lite = window.innerWidth < 768 || (navigator.connection && navigator.connection.saveData);
+    const steps = lite ? [16, 8, 4, 2] : [16, 8, 4, 2, 1];
     load(0).then(() => {
       const order = [COUNT - 1], seen = new Set([0, COUNT - 1]);
-      [16, 8, 4, 2, 1].forEach(step => {
+      steps.forEach(step => {
         for (let i = 0; i < COUNT; i += step) if (!seen.has(i)) { seen.add(i); order.push(i); }
       });
       let next = 0;
@@ -907,10 +961,6 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
     if (e.key === 'Escape' && mobileMenu.classList.contains('open')) { setMenu(false); hamburger.focus(); }
   });
 
-  // Icons: swap <i data-lucide> placeholders for inline SVGs. Guarded so a CDN failure
-  // can't stop the rest of this script.
-  if (window.lucide) lucide.createIcons();
-
   // Dashboard iframe: resize to its content, fall back to a link if it never reports in.
   const DASHBOARD_ORIGIN = 'https://ccb-survey-dashboard.vercel.app';
   const dashWrap = document.getElementById('dashboardWrap');
@@ -922,11 +972,12 @@ footer .copyright{margin-top:4px;font-size:11px;color:rgba(255,255,255,.65)}
     if (!(h > 0)) return;
     dashReady = true;
     dashWrap.classList.remove('failed');
+    dashWrap.classList.add('ready');
     dashFrame.style.minHeight = '0';
     dashFrame.style.height = h + 'px';
   });
   dashFrame.addEventListener('load', () => {
-    setTimeout(() => { if (!dashReady) dashWrap.classList.add('failed'); }, 15000);
+    setTimeout(() => { if (!dashReady) dashWrap.classList.add('failed'); }, 8000);
   });
 
   // PayPal has no link, so copy the address instead.
